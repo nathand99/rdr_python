@@ -3,6 +3,7 @@ class Node:
         self.dataval = dataval
         self.nexttrue = None
         self.nextfalse = None
+        self.case = [] # all cases for which rule is true in dataframe. first example is the first one you added (cornerstone case). might be useful to add all cases for which rule gives true. eg all mammals
 
 class SLinkedList:
     def __init__(self):
