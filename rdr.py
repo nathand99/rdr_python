@@ -3,6 +3,26 @@ import pandas as pd
 
 #https://www.w3resource.com/pandas/dataframe/dataframe-query.php
 #https://www.geeksforgeeks.org/python-filtering-data-with-pandas-query-method/
+class Node:
+    def __init__(self, dataval=None):
+        self.dataval = dataval
+        self.nexttrue = None
+        self.nextfalse = None
+        self.case = [] # all cases for which rule is true in dataframe. first example is the first one you added (cornerstone case). might be useful to add all cases for which rule gives true. eg all mammals
+
+class SLinkedList:
+    def __init__(self):
+        self.headval = None
+
+    def listprint(self):
+        printval = self.headval
+        while printval is not None:
+            print (printval.dataval)
+            print("Then")
+            print(printval.nexttrue)
+            printval = printval.nextfalse
+
+
 
 # function to enter a new rule. Returns 
 def enter_new_rule():
@@ -39,17 +59,49 @@ df = pd.read_csv(filename)
 
 # add empty conclusion column
 df['conclusion'] = '-'
-print(df)
+#print(df)
 
-# rules list
-rules = []
+# rules linked list
+list = SLinkedList()
 
-full_rule = enter_new_rule()
-if full_rule == -1: 
-    exit()
-else:
-    print(f"Added rule: {full_rule}")
-
+# prompt loop
+while (True):
+    print("Hello")
+    print("Press (1) to see rules dataframe")
+    print("Press (2) add a rule")
+    print("Press (3) to run rule")
+    i = int(input())
+    if i == 1:
+        print(df)
+    elif i == 2:
+        full_rule = enter_new_rule()
+        if full_rule == -1:
+            continue
+        else:
+            print(f"Added rule: {full_rule}")
+            # split full_rule into rule and conclusion
+            split_rule = full_rule.split()
+            #rule = milk==1
+            rule = split_rule[1] + split_rule[2] + split_rule[3]
+            #conclusion = mammal
+            conclusion = split_rule[5]
+            if list.headval == None:
+                list.headval = Node(rule)
+                # Link first Node to second node
+                list.headval.nexttrue = conclusion
+            else:
+                n = list.headval
+                while n is not None:
+                    n = n.nextFalse
+                
+    elif i == 3:
+        # single animal and all animals
+        n = list.headval
+        while n is not None:
+            query = n.dataval + " and " + "name==" + "'" + "aardvark" + "'"
+            print(df.query(query))
+            #ddd = query ... if ddd.empty == true
+            
 # split full_rule into rule and conclusion
 split_rule = full_rule.split()
 rule = split_rule[1] + split_rule[2] + split_rule[3]
@@ -83,5 +135,3 @@ for animal in df['name']:
         print(df[['name','milk', 'target', 'conclusion']])
         break
     break
-
-
