@@ -1,6 +1,14 @@
 import numpy as np 
 import pandas as pd
-
+from sklearn import preprocessing, tree
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn.tree import export_graphviz
+from six import StringIO 
+from IPython.display import Image 
+from pydot import graph_from_dot_data
 #https://www.w3resource.com/pandas/dataframe/dataframe-query.php
 #https://www.geeksforgeeks.org/python-filtering-data-with-pandas-query-method/
 class Node:
@@ -81,9 +89,31 @@ rules_count += 1
 filename = 'animals.csv'
 df = pd.read_csv(filename)
 
+""" m = "mammal"
+mBytes = m.encode("utf-8")
+mInt = int.from_bytes(mBytes, byteorder="big")
+mBytes = mInt.to_bytes(((mInt.bit_length() + 7) // 8), byteorder="big")
+m = mBytes.decode("utf-8") """
+
+# change target to numeric value. Note: the numeric value is in alphabetical order of the targets
+targets = np.unique(df['target'].values) # targets_list
+le = preprocessing.LabelEncoder()
+le.fit(targets)
+    #['mammal', 'fish', 'bird', 'mollusc', 'insect', 'amphibian', 'reptile']
+transformed = le.transform(targets)
+    #[4 2 1 5 3 0 6]
+back = list(le.inverse_transform(transformed))
+    #['mammal', 'fish', 'bird', 'mollusc', 'insect', 'amphibian', 'reptile']
+# add empty encoded column - add int encoding of each target to encoding column
+df['encoded'] = '-'
+for c in df['name']:
+    caserow = df.loc[df["name"] == c]
+    t = caserow.iloc[0]["target"] # mammal
+    transform = le.transform([t])[0]
+    df.loc[df["name"] == c, 'encoded'] = transform
+
 # add empty conclusion column
 df['conclusion'] = '-'
-#print(df)
 
 # run through rules for a single case - modifys conclusion for case if needed
 def run_case(case):
@@ -143,34 +173,63 @@ def add_rule(rule, conclusion, nextTrue, nextFalse, case, rules_count):
         prev.nextFalse = rules_count
     print("New rule added")
 
+# initialised outside the loop
+dt = DecisionTreeClassifier()
+
 # prompt loop
 while (True):
     print("Hello")
+    print("Press (0) train decision tree on data")
     print("Press (1) to see cases dataframe")
-    print("Press (2) add a rule")
+    print("Press (2) to run decision tree on a single case")
     print("Press (3) to run rules on single case")
     print("Press (4) to run rules on all cases")
     print("Press (5) to see all rules")
     #print("Press (q) to quit")
     i = int(input())
+    if i == 0:
+        X = df.iloc[:,1:-4] # leave out last 3 columns (4 and dont give name)
+        Y = df.iloc[:,-2] # take target as encoded column - note: all values must be numeric - hence encoded
+        Y=Y.astype('int')
+        #print(X)
+        #print(Y)
+        # split data and train dt
+        X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=1, stratify = Y)
+        dt = DecisionTreeClassifier()
+        dt = dt.fit(X_train, y_train)
+        # show the dt - in file
+        #tree.plot_tree(dt) # doesnt work
+        feature_names = df.columns.values[1:-4] # leave out last 3 columns (4 and dont give name)
+        target_names = np.unique(df['target'].values) # unique target values - sorted (for some reason)
+        #tree.export_graphviz(clf, out_file=dot_data) #le.inverse_transform(list(transformed))
+        dot_data = StringIO()
+        # Note: the value array puts the 
+        export_graphviz(dt, out_file=dot_data, feature_names=feature_names, class_names=target_names , filled=True)
+        (graph, ) = graph_from_dot_data(dot_data.getvalue())
+        graph.write_png('tree2.png')
+        Image(graph.create_png())
+        print("\nDecision tree trained\n")
+        #predict
+        y_pred = dt.predict(X_test)
+        #confusion matrix
+        #species = np.array(y_test).argmax(axis=0)
+        #predictions = np.array(y_pred).argmax(axis=0)
+        #confusion_matrix(species, predictions)
     # print cases dataframe
-    if i == 1:
+    elif i == 1:
         print(df)
-    # enter a new rule - not allowed anymore
+    # run dt on case
     elif i == 2:
-        full_rule = enter_new_rule()
-        if full_rule == -1:
-            continue
-        else:
-            print(f"Added rule: {full_rule}")
-            # split full_rule into rule and conclusion
-            split_rule = full_rule.split()
-            #rule = milk==1
-            rule = split_rule[1] + split_rule[2] + split_rule[3]
-            #conclusion = mammal
-            conclusion = split_rule[5]
-            add_rule(rule, conclusion, conclusion, None, None, rules_count)
-            rules_count += 1 # doesnt increment in function
+        case = input("Which case to run on the decision tree?\n")
+        case = case.lower()
+        c = df.loc[df["name"] == case]
+        c = c.iloc[:,1:-4]
+        r = dt.predict(c) # gives an encoded array
+        r = le.inverse_transform(r) # unencode it
+        print()
+        print(f"Decision tree classification: {r[0]}")
+        #print(r[0])
+        print()
     # run rules on a single case
     elif i == 3:
         # TODO add check if case is legit
@@ -242,6 +301,7 @@ while (True):
                 rules_list[rules_count] = Node(rules_count, rule, conclusion, conclusion, last_rule.nextTrue, case)
                 last_rule.nextTrue = rules_count
                 print("Refinement rule added")
+            # false case
             else:
                 pass
             
