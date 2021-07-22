@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn import preprocessing, tree
 from sklearn.datasets import load_iris
-from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import export_graphviz
@@ -175,6 +175,7 @@ def add_rule(rule, conclusion, nextTrue, nextFalse, case, rules_count):
 
 # initialised outside the loop
 dt = DecisionTreeClassifier()
+X = df.iloc[:,1:-4]
 
 # prompt loop
 while (True):
@@ -203,9 +204,10 @@ while (True):
         target_names = np.unique(df['target'].values) # unique target values - sorted (for some reason)
         #tree.export_graphviz(clf, out_file=dot_data) #le.inverse_transform(list(transformed))
         dot_data = StringIO()
-        # Note: the value array puts the 
+        # Note: the value array puts the encoded in numeric order
         export_graphviz(dt, out_file=dot_data, feature_names=feature_names, class_names=target_names , filled=True)
         (graph, ) = graph_from_dot_data(dot_data.getvalue())
+        print(dot_data.getvalue())
         graph.write_png('tree2.png')
         Image(graph.create_png())
         print("\nDecision tree trained\n")
@@ -230,6 +232,12 @@ while (True):
         print(f"Decision tree classification: {r[0]}")
         #print(r[0])
         print()
+        # decision path experiment
+        #xxx = dt.decision_path(X)
+        #decision_path_list = list(xxx.toarray())
+        #for path in decision_path_list:
+        #    print(path)
+        #print(xxx)
     # run rules on a single case
     elif i == 3:
         # TODO add check if case is legit
@@ -335,7 +343,17 @@ while (True):
         df = pd.read_csv(filename)
     else: 
         exit()
-            
+
+#for each case
+    # train dt model
+    # get a case
+    # run case through dt and observe prediction 1
+    # run case through rules and observe prediction 2
+    # if prediction 1 == prediction 2:
+        # continue
+    # else:
+        # add a new rule to give prediction 1 for case
+
 # split full_rule into rule and conclusion
 split_rule = full_rule.split()
 rule = split_rule[1] + split_rule[2] + split_rule[3]
