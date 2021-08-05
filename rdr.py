@@ -304,9 +304,9 @@ while (True):
         #print(X)
         #print(Y)
         # split data and train dt
-        X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=1, stratify = Y)
+        #X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=1, stratify = Y)
         dt = DecisionTreeClassifier()
-        dt = dt.fit(X_train, y_train)
+        dt = dt.fit(X, Y)
         # show the dt - in file
         #tree.plot_tree(dt) # doesnt work
         feature_names = df.columns.values[1:-4] # leave out last 3 columns (4 and dont give name)
@@ -321,7 +321,7 @@ while (True):
         Image(graph.create_png())
         print("\nDecision tree trained\n")
         #predict
-        y_pred = dt.predict(X_test)
+        #y_pred = dt.predict(X_test)
         #confusion matrix
         #species = np.array(y_test).argmax(axis=0)
         #predictions = np.array(y_pred).argmax(axis=0)
