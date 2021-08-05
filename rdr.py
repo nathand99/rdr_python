@@ -40,22 +40,28 @@ def enter_new_rule():
         print("Entering new rule")
         print("-"*50)
         print("if")
-        attribute = input("Enter an attribute: ")
-        operator = input("Enter an operator: ")
-        value = input("Enter an value: ")
+        rule = ""
+        while(1):
+            attribute = input("Enter an attribute: ")
+            operator = input("Enter an operator: ")
+            value = input("Enter an value: ")
+            more = input('Add another condition? (Y/n): ')
+            if more.lower() == 'y':
+                op = input('AND/OR: ')
+                rule += f"`{attribute}` {operator} {value} {op} "
+                continue
+            else:
+                rule += f"`{attribute}` {operator} {value}"
+                break
         print("then: ")
         conclusion = input("Enter a conclusion: ")
         print("Rule entered:")
-        string = f"if {attribute} {operator} {value} then {conclusion}"
-        print(string)
+        #rule = f"if {attribute} {operator} {value} then {conclusion}"
+        full_rule = "if " + rule + " then " + conclusion
+        print(full_rule)
         correct = input("Is the rule correct (y/n)? ")
+        #print(rule)
         if correct.lower() == 'y':
-            # split rule by spaces
-            split_rule = string.split()
-            #rule = milk==1
-            rule = split_rule[1] + split_rule[2] + split_rule[3]
-            #conclusion = mammal
-            conclusion = split_rule[5]
             return rule, conclusion
         else:
             abort = input("Abort? (y) or retry adding new rule? (y/n)")
@@ -322,7 +328,10 @@ while (True):
         #confusion_matrix(species, predictions)
     # print cases dataframe
     elif i == 1:
-        print_full(df)
+        print(df)
+        """ case = "bear"
+        q = df.query("name==" + "'" + case + "'")
+        print(q) """
     # run dt on case
     elif i == 2:
         case = input("Which case to run on the decision tree?\n").lower()
