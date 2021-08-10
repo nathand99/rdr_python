@@ -39,7 +39,7 @@ def enter_new_rule():
         print("-"*50)
         print("Entering new rule")
         print("-"*50)
-        print("if")
+        print("if: ")
         rule = ""
         while(1):
             attribute = input("Enter an attribute: ")
@@ -47,7 +47,7 @@ def enter_new_rule():
             value = input("Enter an value: ")
             more = input('Add another condition? (Y/n): ')
             if more.lower() == 'y':
-                op = input('AND/OR: ')
+                op = input('and/or: ').lower()
                 rule += f"`{attribute}` {operator} {value} {op} "
                 continue
             else:
@@ -414,12 +414,12 @@ while (True):
     elif i == 5:
         print("Rules")
         #print("Number\tRule\t\tConclusion\t\tTRUEBranch\t\tFALSEBranch\t\tCase")
-        print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases"))
+        print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases"))
         i = 1
         while i <= rules_count:
             n = rules_list[i]
             #print(f"{n.num}\t{n.data}\t\t{n.con}\t\t{n.nextTrue}\t\t{n.nextFalse}\t\t{n.case}")
-            print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
             i += 1
     # clear all rules
     elif i == 6:
