@@ -310,11 +310,6 @@ print("Done")
 print(f"training decision tree as \"black box\" classifier...", end='')
 X = df.iloc[:,1:-4] # X-values: leave out last 2 columns (encoded, conclusion) as well as first column (name)
 y = df.iloc[:,-2].astype('int') # take target as encoded column (second last column). note: all values must be numeric - hence encoded
-#Y=Y.astype('int')
-#print(X)
-#print(Y)
-# split data and train dt
-#X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=1, stratify = Y)
 dt = DecisionTreeClassifier()
 dt = dt.fit(X, y)
 # show the dt - in file

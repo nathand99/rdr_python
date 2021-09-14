@@ -9,6 +9,3 @@ print(df) # the catsize column is removed
 # export dataframe to csv
 path = Path("animalsmodified.csv")
 df.to_csv(path, index=False)
-
-print(df.dtypes['tail'])
-print(df.dtypes['target'])
