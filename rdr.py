@@ -256,7 +256,8 @@ print("initialising rules_list and rules_count...", end='')
 # initialise rules list and rule count
 # rules list
 # Node(rules_count, rule, conclusion, conclusion, last_rule.nextTrue, case, true_list)
-rules_list = [None] * 100 # magic number - max 100 rules
+NUM_RULES = 100 # magic number - max 100 rules
+rules_list = [None] * NUM_RULES
 # Note: rules_list[0] is always None - rules_list[1] is the head
 # rules_count = number of rules currently in list. Increment before adding rule
 rules_count = 0
@@ -343,14 +344,13 @@ while (True):
     print("Press (6) to clear rules")
     print("Press (7) to clear conclusions")
     print("Press (8) to show decision path of decision tree")
+    print("Press (9) to save current rules_list to a file")
+    print("Press (10) to read in a new rules_list from a file")
     #print("Press (q) to quit")
     i = int(input())
     # print cases dataframe
     if i == 1:
         print(df)
-        """ case = "bear"
-        q = df.query("name==" + "'" + case + "'")
-        print(q) """
     # run dt on case
     elif i == 2:
         case = input("Which case to run on the decision tree?\n").lower()
@@ -360,32 +360,41 @@ while (True):
     elif i == 3:
         # TODO add check if case is legit
         case = input("Which case to run?\n").lower()
-        # run through rules for case. will put conclusion in df in there is one. r = the last rule used
+        # run case through dt and observe prediction 1
+        print(f"Case: {case}")
+        pred1 = predict_case(df, dt, case)    
+        print(f"Decision tree classification: {pred1}") 
+        # run case through rules and observe prediction 2 - this function includes prints unlike run on all cases
         last_rule = run_case(df, case)
-        # get target value amd conclusion value - test if equal
         caserow = df.loc[df["name"] == case]
-        target = caserow.iloc[0]["target"]
-        con = caserow.iloc[0]["conclusion"]
-        print(f"\nIs the conclusion correct for case {case} (target == conclusion)?")
-        # conclusion correct - nothing to be done
-        if target == con:
-            print("\nConclusion correct\n")
-        # conclusion missing - add new cornerstone case
-        elif con == "-":
-            print("\nConclusion missing\n")
-            print(f"Add a cornerstone rule to correctly classify {case}")
+        pred2 = caserow.iloc[0]["conclusion"]
+        print(f"RDR classification: {pred2}") 
+        # if match - move to next case
+        # else - add a new rule to give prediction 1 for case
+        if pred1 == pred2:
+            print("Conclusion correct. Move onto next case\n")
+        # conclusion missing - add new cornerstone rule
+        elif pred2 == "-":
+            print("Conclusion missing. The rules application is shown below: \n")
+            run_case(df, case) # run case again just to print
+            print(f"\nAdd a new cornerstone rule to correctly classify {case}\n")
             rule, conclusion = enter_new_rule()
             rules_list = add_cornerstone_rule(rule, conclusion, conclusion, None, case, rules_count, rules_list)
-            rules_count += 1 
+            rules_count += 1
+            print("New cornerstone rule added:")
+            n = rules_list[rules_count]
+            print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+            break
         # conclusion incorrect - add refinement rule
         else:
-            print("\nConclusion incorrect\n")
-            print(f"Add a refinement rule to correctly classify {case}\n")
+            print("Conclusion incorrect. The rules application is shown below: \n")
+            run_case(df, case) # run case again just to print
+            print(f"\nAdd a refinement rule to correctly classify {case}\n")
             rules_list = add_refinement_rule(last_rule, case, rules_count, rules_list, df)
             rules_count += 1 
+            break
     # run rules on all animals
     elif i == 4:
-        # train model before this step
         # for each case
         for case in df['name']:
             # run case through dt and observe prediction 1
@@ -421,10 +430,6 @@ while (True):
                 rules_list = add_refinement_rule(last_rule, case, rules_count, rules_list, df)
                 rules_count += 1 
                 break
-            # if prediction 1 == prediction 2:
-                # continue
-            # else:
-                # add a new rule to give prediction 1 for case
     # possibility for new loop: start action on a specific case:
     # for case in df['name']:
     # if name != name && flag == true: continue
@@ -443,7 +448,7 @@ while (True):
     # clear all rules
     elif i == 6:
         rules_count = 0
-        rules_list = rules_list = [None] * 100
+        rules_list = rules_list = [None] * NUM_RULES
     # clear dataframe
     elif i == 7:
         df['conclusion'] = '-'
@@ -458,6 +463,43 @@ while (True):
             print(path)
         print("Co-ordinates for 1's in matrix only")
         print(dt_path)
+    # save rules_list
+    elif i == 9:
+        print("WARNING: choose a name for a file that does not exist")
+        name = input("Enter name of file to be saved to: \n").lower()
+        f = open(name, "a")
+        # first line is rules count
+        f.write(f"{rules_count}\n")
+        for n in rules_list:
+            if n == None:
+                f.write("None\n")
+            else:
+                f.write('{},{},{},{},{},{},{}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+        f.close()
+        print(f"Rules in rules_list saved to file: {name}")
+    # read in rules_list
+    elif i == 10:
+        print("WARNING: this operation will overwrite your current rules")
+        name = input("Enter name of file to read rules from: \n").lower()
+        f = open(name, "r")
+        data = f.readlines()
+        rules_list = [None] * NUM_RULES
+        i = 0
+        flag = True
+        # go through all rules putting them in rules_list
+        for n in data:
+            # first line is rules count
+            if flag:
+                rules_count = int(data[0])
+                flag = False
+                continue
+            if n == "None\n":
+                i += 1
+            else:
+                n = n.split("\n")
+                x = n[0].split(",")
+                rules_list[i] = Node(num=x[0], data=x[1], con=x[2], nextTrue=x[3], nextFalse=x[4], case=x[5], true_cases=x[6])
+                i += 1
     else: 
         exit()
 
@@ -541,3 +583,5 @@ rules.count += 1
 """
 #https://www.w3resource.com/pandas/dataframe/dataframe-query.php
 #https://www.geeksforgeeks.org/python-filtering-data-with-pandas-query-method/
+#https://www.kdnuggets.com/2019/06/select-rows-columns-pandas.html
+#https://www.kdnuggets.com/2017/05/simplifying-decision-tree-interpretation-decision-rules-python.html
