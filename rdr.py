@@ -456,13 +456,57 @@ while (True):
     elif i == 8:
         # decision path experiment
         dt_path = dt.decision_path(X)
-        decision_path_list = list(dt_path.toarray())
-        print("Full matrix - a 1 at (x, y) corresponds to node y in dt being used for case x")
-        print("Find node numbers by printing out dot data")
-        for path in decision_path_list:
-            print(path)
-        print("Co-ordinates for 1's in matrix only")
-        print(dt_path)
+        #decision_path_list = list(dt_path.toarray())
+        #print("Full matrix - a 1 at (x, y) corresponds to node y in dt being used for case x")
+        #print("Find node numbers by printing out dot data")
+        #for path in decision_path_list:
+        #    print(path)
+        #print("Co-ordinates for 1's in matrix only")
+        #print(dt_path)
+
+        node_indicator = dt.decision_path(X) # the decision path in the tree - a matrix. 
+        leaf_id = dt.apply(X) # id of leaf node for each case in X
+        feature = dt.tree_.feature # numeric version of features used by dt
+        features = [feature_names[i] for i in feature] # converted to feature names
+        threshold = dt.tree_.threshold # thresholds for each node (rule)
+        # get case name
+        case = input("Which case name to show decision path?\n").lower()
+        # turn case name into index (in dataframe)
+        sample_id = df.index[df['name']==case].tolist()[0]
+        # obtain ids of the nodes `sample_id` goes through
+        node_index = node_indicator.indices[node_indicator.indptr[sample_id]:node_indicator.indptr[sample_id + 1]]
+        print('Rules used to predict case {case} (sample {id}):\n'.format(id=sample_id, case=case))
+        #help(tree._tree.Tree)
+        for node_id in node_index:
+            # leaf node - print the class (the most popular field in value whose index is in encoded)
+            if leaf_id[sample_id] == node_id:
+                print(f"node {node_id} is a leaf node, class:{list(le.inverse_transform([np.argmax(dt.tree_.value[node_id])]))[0]}")
+                break
+            # check if value of the split feature for sample 0 is below threshold
+            if (X.iloc[sample_id, feature[node_id]] <= threshold[node_id]):
+                threshold_sign = "<="
+            else:
+                threshold_sign = ">"
+            """ print("decision node {node} : (X[{sample}, {feature}] = {value}) {inequality} {threshold})".format(
+                    node=node_id,
+                    sample=sample_id,
+                    feature=features[node_id],
+                    value=X.iloc[sample_id, feature[node_id]],
+                    inequality=threshold_sign,
+                    threshold=threshold[node_id])) """
+            print("decision node {node} : (X[{sample}, {feature}] = {value}) {inequality} {threshold})".format(
+                    node=node_id,
+                    sample=sample_id,
+                    feature=features[node_id],
+                    value=X.iloc[sample_id, feature[node_id]],
+                    inequality=threshold_sign,
+                    threshold=threshold[node_id]))
+            if threshold_sign == "<=":
+                print(f"value for {features[node_id]} <= {threshold[node_id]} is TRUE. Go to TRUE branch - which is node {dt.tree_.children_left[node_id]}")
+                #children_left[i]
+            else:
+                print(f"value for {features[node_id]} <= {threshold[node_id]} is FALSE. Go to FALSE branch - which is node {dt.tree_.children_right[node_id]}")
+        print()
     # save rules_list
     elif i == 9:
         print("WARNING: choose a name for a file that does not exist")
