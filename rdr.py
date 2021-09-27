@@ -6,9 +6,12 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import export_graphviz
+from sklearn.ensemble import RandomForestClassifier
 from six import StringIO 
 from IPython.display import Image 
 from pydot import graph_from_dot_data
+import matplotlib.pyplot as plt
+from sklearn.inspection import permutation_importance
 
 class Node:
     def __init__(self, num=None, data=None, con=None, nextTrue=None, nextFalse=None, case=None, true_cases=[]):
@@ -332,6 +335,43 @@ print("Done\n")
 #species = np.array(y_test).argmax(axis=0)
 #predictions = np.array(y_pred).argmax(axis=0)
 #confusion_matrix(species, predictions)
+
+# train random forest
+print(f"training random forest as \"black box\" classifier...", end='')
+rf = RandomForestClassifier() # using default parameters (100 trees)
+rf = rf.fit(X, y)
+print("Done\n")
+importances = rf.feature_importances_
+importances_dictionary = dict(zip(feature_names, importances))
+sort_importances = sorted(importances_dictionary.items(), key=lambda x: x[1], reverse=True)
+print("feature importance determined by random forest - most to least important for entire dataset")
+for i in sort_importances:
+    print(f"{i[0]}: {i[1]}")
+print()
+
+# plot - MDI (mean decrease in impurity) - relatively stable
+std = np.std([
+    tree.feature_importances_ for tree in rf.estimators_], axis=0)
+forest_importances = pd.Series(importances, index=feature_names)
+fig, ax = plt.subplots()
+forest_importances.plot.bar(ax=ax) #yerr=std - add horizontal / vertical errorbars to the bar tips. The values are +/- sizes relative to the data
+ax.set_title("Feature importances using MDI") 
+ax.set_ylabel("Mean decrease in impurity")
+fig.tight_layout()
+plt.savefig('randomforestfeatureimportancesMDI.png')
+
+# plot - MAD (mean accuracy decrease) - a bit wild
+result = permutation_importance(
+    rf, X, y, n_repeats=10, random_state=42, n_jobs=2)
+
+forest_importances = pd.Series(result.importances_mean, index=feature_names)
+fig, ax = plt.subplots()
+forest_importances.plot.bar(yerr=result.importances_std, ax=ax)
+ax.set_title("Feature importances using permutation on full model")
+ax.set_ylabel("Mean accuracy decrease")
+fig.tight_layout()
+plt.savefig('randomforestfeatureimportancesMAD.png')
+
 
 # prompt loop
 while (True):
