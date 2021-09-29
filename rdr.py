@@ -316,6 +316,7 @@ X = df.iloc[:,1:-4] # X-values: leave out last 2 columns (encoded, conclusion) a
 y = df.iloc[:,-2].astype('int') # take target as encoded column (second last column). note: all values must be numeric - hence encoded
 dt = DecisionTreeClassifier()
 dt = dt.fit(X, y)
+
 # show the dt - in file
 #tree.plot_tree(dt) # doesnt work
 feature_names = df.columns.values[1:-4] # leave out last 3 columns (4 and dont give name)
@@ -326,9 +327,10 @@ dot_data = StringIO()
 export_graphviz(dt, out_file=dot_data, feature_names=feature_names, class_names=target_names , filled=True)
 (graph, ) = graph_from_dot_data(dot_data.getvalue())
 # print(dot_data.getvalue()) - dot data - print to find node numers in dt
-graph.write_png('tree2.png')
+treefile = "tree2.png"
+graph.write_png(treefile)
 Image(graph.create_png())
-print("Done\n")
+print("Done")
 #predict
 #y_pred = dt.predict(X_test)
 #confusion matrix
@@ -341,69 +343,52 @@ print(f"training random forest as \"black box\" classifier...", end='')
 rf = RandomForestClassifier() # using default parameters (100 trees)
 rf = rf.fit(X, y)
 print("Done\n")
-importances = rf.feature_importances_
-importances_dictionary = dict(zip(feature_names, importances))
-sort_importances = sorted(importances_dictionary.items(), key=lambda x: x[1], reverse=True)
-print("feature importance determined by random forest - most to least important for entire dataset")
-for i in sort_importances:
-    print(f"{i[0]}: {i[1]}")
-print()
 
-# plot - MDI (mean decrease in impurity) - relatively stable
-std = np.std([
-    tree.feature_importances_ for tree in rf.estimators_], axis=0)
-forest_importances = pd.Series(importances, index=feature_names)
-fig, ax = plt.subplots()
-forest_importances.plot.bar(ax=ax) #yerr=std - add horizontal / vertical errorbars to the bar tips. The values are +/- sizes relative to the data
-ax.set_title("Feature importances using MDI") 
-ax.set_ylabel("Mean decrease in impurity")
-fig.tight_layout()
-plt.savefig('randomforestfeatureimportancesMDI.png')
-
-# plot - MAD (mean accuracy decrease) - a bit wild
-result = permutation_importance(
-    rf, X, y, n_repeats=10, random_state=42, n_jobs=2)
-
-forest_importances = pd.Series(result.importances_mean, index=feature_names)
-fig, ax = plt.subplots()
-forest_importances.plot.bar(yerr=result.importances_std, ax=ax)
-ax.set_title("Feature importances using permutation on full model")
-ax.set_ylabel("Mean accuracy decrease")
-fig.tight_layout()
-plt.savefig('randomforestfeatureimportancesMAD.png')
-
+# choose bb model
+print(f"Choose which model to use as a black box classifier: ")
+print("Press (1) to use a decision tree")
+print("Press (2) to use a random forest")
+m = int(input())
+bb = dt # black box is decision tree by default
+# use decision tree (dt)
+if m == 1:
+    bb = dt
+# use random forest (rf)
+else:
+    bb = rf
 
 # prompt loop
 while (True):
     print(f"Welcome to python RDR")
     print("Press (1) to see cases dataframe")
-    print("Press (2) to run decision tree on a single case")
+    print("Press (2) to run black box classifier on a single case")
     print("Press (3) to run rules on single case")
     print("Press (4) to run rules on all cases")
     print("Press (5) to see all rules")
     print("Press (6) to clear rules")
     print("Press (7) to clear conclusions")
     print("Press (8) to show decision path of decision tree")
-    print("Press (9) to save current rules_list to a file")
-    print("Press (10) to read in a new rules_list from a file")
+    print("Press (9) to show feature importances of random forest")
+    print("Press (10) to save/loadrules_list to/from a file")
+    print("Press (11) to change black box model")
     #print("Press (q) to quit")
     i = int(input())
     # print cases dataframe
     if i == 1:
         print(df)
-    # run dt on case
+    # run bb on case
     elif i == 2:
-        case = input("Which case to run on the decision tree?\n").lower()
-        prediction = predict_case(df, dt, case)    
-        print(f"\nDecision tree classification: {prediction}\n") 
+        case = input("Which case to run on the black box? \n").lower()
+        prediction = predict_case(df, bb, case)    
+        print(f"\nBlack box classification: {prediction}\n") 
     # run rules on a single case
     elif i == 3:
         # TODO add check if case is legit
         case = input("Which case to run?\n").lower()
-        # run case through dt and observe prediction 1
+        # run case through black box and observe prediction 1
         print(f"Case: {case}")
-        pred1 = predict_case(df, dt, case)    
-        print(f"Decision tree classification: {pred1}") 
+        pred1 = predict_case(df, bb, case)    
+        print(f"Black box classification: {pred1}") 
         # run case through rules and observe prediction 2 - this function includes prints unlike run on all cases
         last_rule = run_case(df, case)
         caserow = df.loc[df["name"] == case]
@@ -437,10 +422,10 @@ while (True):
     elif i == 4:
         # for each case
         for case in df['name']:
-            # run case through dt and observe prediction 1
+            # run case through black box and observe prediction 1
             print(f"Case: {case}")
-            pred1 = predict_case(df, dt, case)    
-            print(f"Decision tree classification: {pred1}") 
+            pred1 = predict_case(df, bb , case)    
+            print(f"Black box classification: {pred1}") 
             # run case through rules and observe prediction 2
             last_rule = run_case_no_prints(df, case)
             caserow = df.loc[df["name"] == case]
@@ -547,43 +532,92 @@ while (True):
             else:
                 print(f"value for {features[node_id]} <= {threshold[node_id]} is FALSE. Go to FALSE branch - which is node {dt.tree_.children_right[node_id]}")
         print()
-    # save rules_list
+    # feature importances of random forest
     elif i == 9:
-        print("WARNING: choose a name for a file that does not exist")
-        name = input("Enter name of file to be saved to: \n").lower()
-        f = open(name, "a")
-        # first line is rules count
-        f.write(f"{rules_count}\n")
-        for n in rules_list:
-            if n == None:
-                f.write("None\n")
-            else:
-                f.write('{},{},{},{},{},{},{}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
-        f.close()
-        print(f"Rules in rules_list saved to file: {name}")
-    # read in rules_list
+        importances = rf.feature_importances_
+        importances_dictionary = dict(zip(feature_names, importances))
+        sort_importances = sorted(importances_dictionary.items(), key=lambda x: x[1], reverse=True)
+        print("Feature importance determined by random forest - most to least important for entire dataset")
+        for i in sort_importances:
+            print(f"{i[0]}: {i[1]}")
+        print()
+        print("saving plots of importances to files: randomforestfeatureimportancesMDI.png, randomforestfeatureimportancesMAD.png...", end='')
+
+        # plot - MDI (mean decrease in impurity) - relatively stable
+        std = np.std([
+            tree.feature_importances_ for tree in rf.estimators_], axis=0)
+        forest_importances = pd.Series(importances, index=feature_names)
+        fig, ax = plt.subplots()
+        forest_importances.plot.bar(ax=ax) #yerr=std - add horizontal / vertical errorbars to the bar tips. The values are +/- sizes relative to the data
+        ax.set_title("Feature importances using MDI") 
+        ax.set_ylabel("Mean decrease in impurity")
+        fig.tight_layout()
+        plt.savefig('randomforestfeatureimportancesMDI.png')
+
+        # plot - MAD (mean accuracy decrease) - a bit wild
+        result = permutation_importance(
+            rf, X, y, n_repeats=10, random_state=42, n_jobs=2)
+
+        forest_importances = pd.Series(result.importances_mean, index=feature_names)
+        fig, ax = plt.subplots()
+        forest_importances.plot.bar(yerr=result.importances_std, ax=ax)
+        ax.set_title("Feature importances using permutation on full model")
+        ax.set_ylabel("Mean accuracy decrease")
+        fig.tight_layout()
+        plt.savefig('randomforestfeatureimportancesMAD.png')
+        print("Done\n")
+    # save or read in rules_list
     elif i == 10:
-        print("WARNING: this operation will overwrite your current rules")
-        name = input("Enter name of file to read rules from: \n").lower()
-        f = open(name, "r")
-        data = f.readlines()
-        rules_list = [None] * NUM_RULES
-        i = 0
-        flag = True
-        # go through all rules putting them in rules_list
-        for n in data:
+        saveorload = input("Would you like to save or load rules? (s/l): \n").lower()
+        if saveorload == "s" or saveorload == "save":
+            print("WARNING: choose a name for a file that does not exist")
+            name = input("Enter name of file to be saved to: \n").lower()
+            f = open(name, "a")
             # first line is rules count
-            if flag:
-                rules_count = int(data[0])
-                flag = False
-                continue
-            if n == "None\n":
-                i += 1
-            else:
-                n = n.split("\n")
-                x = n[0].split(",")
-                rules_list[i] = Node(num=x[0], data=x[1], con=x[2], nextTrue=x[3], nextFalse=x[4], case=x[5], true_cases=x[6])
-                i += 1
+            f.write(f"{rules_count}\n")
+            for n in rules_list:
+                if n == None:
+                    f.write("None\n")
+                else:
+                    f.write('{},{},{},{},{},{},{}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+            f.close()
+            print(f"Rules in rules_list saved to file: {name}")
+        else:
+            print("WARNING: this operation will overwrite your current rules")
+            name = input("Enter name of file to read rules from: \n").lower()
+            f = open(name, "r")
+            data = f.readlines()
+            rules_list = [None] * NUM_RULES
+            i = 0
+            flag = True
+            # go through all rules putting them in rules_list
+            for n in data:
+                # first line is rules count
+                if flag:
+                    rules_count = int(data[0])
+                    flag = False
+                    continue
+                if n == "None\n":
+                    i += 1
+                else:
+                    n = n.split("\n")
+                    x = n[0].split(",")
+                    rules_list[i] = Node(num=x[0], data=x[1], con=x[2], nextTrue=x[3], nextFalse=x[4], case=x[5], true_cases=x[6])
+                    i += 1
+    # change black box model
+    elif i == 11:
+        # choose bb model
+        print(f"Choose which model to use as a black box classifier: ")
+        print("Press (1) to use a decision tree")
+        print("Press (2) to use a random forest")
+        m = int(input())
+        bb = dt # black box is decision tree by default
+        # use decision tree (dt)
+        if m == 1:
+            bb = dt
+        # use random forest (rf)
+        else:
+            bb = rf
     else: 
         exit()
 
