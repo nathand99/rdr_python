@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import export_graphviz
 from sklearn.ensemble import RandomForestClassifier
+import xgboost as xgb
 from six import StringIO 
 from IPython.display import Image 
 from pydot import graph_from_dot_data
@@ -169,13 +170,25 @@ def add_conclusion_no_prints(df, case, conclusion):
     df.loc[df["name"] == case, 'conclusion'] = conclusion
     return
 
-# predict case using decision tree (dt)
+# predict case using black box (dt) and dataframe (df)
 def predict_case(df, dt, case):
-    c = df.loc[df["name"] == case]
-    c = c.iloc[:,1:-4]
-    r = dt.predict(c) # gives an encoded array
-    r = le.inverse_transform(r) # unencode it
-    return r[0]
+    # xgboost uses a dmatrix instead of dataframe
+    if dt == bst:
+        # create the dmatrix needed for xgboost
+        dmatrix = xgb.DMatrix(X, label=y)
+        # get dataframe index of given case
+        index = df.index[df['name']==case].tolist()[0]
+        # ypred gives an array of numbers - round these numbers to get the encoded values
+        ypred = dt.predict(dmatrix)
+        # inverse transform these numbers to get the class
+        r = list(le.inverse_transform([round(ypred[index])]))
+        return r[0]
+    else:
+        c = df.loc[df["name"] == case]
+        c = c.iloc[:,1:-4]
+        r = dt.predict(c) # gives an encoded array
+        r = le.inverse_transform(r) # unencode it
+        return r[0]
 
 # add new rule to rules_list - cornerstone. true_cases = []. returns an updated rules_list
 def add_cornerstone_rule(rule, conclusion, nextTrue, nextFalse, case, rules_count, rules_list):
@@ -253,6 +266,24 @@ def add_refinement_rule(last_rule, case, rules_count, rules_list, df):
     n = rules_list[rules_count]
     print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
     return rules_list
+
+# let the user choose which "black box" classifier
+def choose_black_box():
+    print(f"Choose which model to use as a \"black box\" classifier: ")
+    print("Press (1) to use a decision tree")
+    print("Press (2) to use a random forest")
+    print("Press (3) to use xgboost")
+    m = int(input())
+    bb = dt # black box is decision tree by default
+    # use decision tree (dt)
+    if m == 1:
+        bb = dt
+    # use random forest (rf)
+    elif m == 2:
+        bb = rf
+    else:
+        bb = bst
+    return bb
 
 #############################################################################################################################
 print("initialising rules_list and rules_count...", end='')
@@ -342,20 +373,20 @@ print("Done")
 print(f"training random forest as \"black box\" classifier...", end='')
 rf = RandomForestClassifier() # using default parameters (100 trees)
 rf = rf.fit(X, y)
+print("Done")
+
+# train xgboost
+print(f"training xgboost as \"black box\" classifier...", end='')
+# xgboost uses a dmatrix instead of a dataframe
+dmatrix = xgb.DMatrix(X, label=y)
+num_round = 10
+bst = xgb.train([], dmatrix, num_round, [])
+bst.save_model('xgboostmodel.model')
+#xgb.plot_tree(bst, num_trees=2)
 print("Done\n")
 
 # choose bb model
-print(f"Choose which model to use as a black box classifier: ")
-print("Press (1) to use a decision tree")
-print("Press (2) to use a random forest")
-m = int(input())
-bb = dt # black box is decision tree by default
-# use decision tree (dt)
-if m == 1:
-    bb = dt
-# use random forest (rf)
-else:
-    bb = rf
+bb = choose_black_box()
 
 # prompt loop
 while (True):
@@ -368,9 +399,10 @@ while (True):
     print("Press (6) to clear rules")
     print("Press (7) to clear conclusions")
     print("Press (8) to show decision path of decision tree")
-    print("Press (9) to show feature importances of random forest")
-    print("Press (10) to save/loadrules_list to/from a file")
-    print("Press (11) to change black box model")
+    print("Press (9) to show feature importances from random forest")
+    print("Press (10) to show feature importances from xgboost")
+    print("Press (11) to save/loadrules_list to/from a file")
+    print("Press (12) to change black box model")
     #print("Press (q) to quit")
     i = int(input())
     # print cases dataframe
@@ -566,8 +598,27 @@ while (True):
         fig.tight_layout()
         plt.savefig('randomforestfeatureimportancesMAD.png')
         print("Done\n")
-    # save or read in rules_list
+    # get feature importance from xgboost
     elif i == 10:
+        # built in feature importances
+        xgb.plot_importance(bst)
+        plt.show()
+        xgboost2 = "xgboostfeatureimportance.png"
+        plt.savefig(xgboost2)
+        print(f"Saved feature importances plot 1 to file: {xgboost2}")
+        # custom feature importance
+        feature_important = bst.get_score(importance_type='weight')
+        keys = list(feature_important.keys())
+        values = list(feature_important.values())
+
+        data = pd.DataFrame(data=values, index=keys, columns=["score"]).sort_values(by = "score", ascending=False)
+        data.plot(kind='bar')
+        xgboost1 = 'xgboostfeatureimportancecustom.png'
+        plt.savefig(xgboost1)
+        plt.show()
+        print(f"Saved feature importances plot 2 to file: {xgboost1}\n")
+    # save or read in rules_list
+    elif i == 11:
         saveorload = input("Would you like to save or load rules? (s/l): \n").lower()
         if saveorload == "s" or saveorload == "save":
             print("WARNING: choose a name for a file that does not exist")
@@ -605,19 +656,8 @@ while (True):
                     rules_list[i] = Node(num=x[0], data=x[1], con=x[2], nextTrue=x[3], nextFalse=x[4], case=x[5], true_cases=x[6])
                     i += 1
     # change black box model
-    elif i == 11:
-        # choose bb model
-        print(f"Choose which model to use as a black box classifier: ")
-        print("Press (1) to use a decision tree")
-        print("Press (2) to use a random forest")
-        m = int(input())
-        bb = dt # black box is decision tree by default
-        # use decision tree (dt)
-        if m == 1:
-            bb = dt
-        # use random forest (rf)
-        else:
-            bb = rf
+    elif i == 12:
+        bb = choose_black_box()
     else: 
         exit()
 
