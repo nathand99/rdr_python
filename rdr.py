@@ -343,14 +343,14 @@ print("Done")
 
 # train decision tree
 print(f"training decision tree as \"black box\" classifier...", end='')
-X = df.iloc[:,1:-4] # X-values: leave out last 2 columns (encoded, conclusion) as well as first column (name)
+X = df.iloc[:,1:-3] # X-values: leave out last 3 columns (target, encoded, conclusion) as well as first column (name)
 y = df.iloc[:,-2].astype('int') # take target as encoded column (second last column). note: all values must be numeric - hence encoded
 dt = DecisionTreeClassifier()
 dt = dt.fit(X, y)
 
 # show the dt - in file
 #tree.plot_tree(dt) # doesnt work
-feature_names = df.columns.values[1:-4] # leave out last 3 columns (4 and dont give name)
+feature_names = df.columns.values[1:-3] # leave out last 3 columns (target, encoded, conclusion) as well as first column (name)
 target_names = np.unique(df['target'].values) # unique target values - sorted (for some reason)
 #tree.export_graphviz(clf, out_file=dot_data) #le.inverse_transform(list(transformed))
 dot_data = StringIO()
@@ -378,7 +378,7 @@ print("Done")
 # train xgboost
 print(f"training xgboost as \"black box\" classifier...", end='')
 # xgboost uses a dmatrix instead of a dataframe
-dmatrix = xgb.DMatrix(X, label=y)
+dmatrix = xgb.DMatrix(X, label=y, feature_names=feature_names)
 num_round = 10
 bst = xgb.train([], dmatrix, num_round, [])
 bst.save_model('xgboostmodel.model')
@@ -592,7 +592,7 @@ while (True):
 
         forest_importances = pd.Series(result.importances_mean, index=feature_names)
         fig, ax = plt.subplots()
-        forest_importances.plot.bar(yerr=result.importances_std, ax=ax)
+        forest_importances.plot.bar(ax=ax)
         ax.set_title("Feature importances using permutation on full model")
         ax.set_ylabel("Mean accuracy decrease")
         fig.tight_layout()
@@ -600,23 +600,41 @@ while (True):
         print("Done\n")
     # get feature importance from xgboost
     elif i == 10:
-        # built in feature importances
-        xgb.plot_importance(bst)
-        plt.show()
-        xgboost2 = "xgboostfeatureimportance.png"
-        plt.savefig(xgboost2)
-        print(f"Saved feature importances plot 1 to file: {xgboost2}")
-        # custom feature importance
-        feature_important = bst.get_score(importance_type='weight')
-        keys = list(feature_important.keys())
-        values = list(feature_important.values())
+        # using xgb.feature_importances_
+        #plt.bar(feature_names, bst.feature_importances_)
+        #xgboost0 = "xgboostfeature_importances_.png"
+        #plt.savefig(xgboost0)
+        #print(f"Saved feature importances plot 0 to file: {xgboost0}")
+        print(bst.feature_names)
+        print(bst.get_score(importance_type='weight'))
 
-        data = pd.DataFrame(data=values, index=keys, columns=["score"]).sort_values(by = "score", ascending=False)
-        data.plot(kind='bar')
-        xgboost1 = 'xgboostfeatureimportancecustom.png'
-        plt.savefig(xgboost1)
-        plt.show()
-        print(f"Saved feature importances plot 2 to file: {xgboost1}\n")
+        # using xgb.plot_importance - weight
+        xgb.plot_importance(bst, importance_type="weight", title="Feature importance - weight") #default is weight
+        weightplot = "xgboostplot_importance_weight.png"
+        plt.savefig(weightplot)
+        print(f"Saved feature importances by weight to file: {weightplot}")
+        # using xgb.plot_importance - gain
+        xgb.plot_importance(bst, importance_type = "gain", title="Feature importance - gain")
+        gainplot = "xgboostplot_importance_gain.png"
+        plt.savefig(gainplot)
+        print(f"Saved feature importances by gain to file: {gainplot}")
+        # using xgb.plot_importance - cover
+        xgb.plot_importance(bst, importance_type = "cover", title="Feature importance - cover")
+        coverplot = "xgboostplot_importance_cover.png"
+        plt.savefig(coverplot)
+        print(f"Saved feature importances by cover to file: {coverplot}")
+        
+        # custom feature importance - does the same as above
+        #feature_important = bst.get_score(importance_type='weight')
+        #keys = list(feature_important.keys())
+        #values = list(feature_important.values())
+
+        #data = pd.DataFrame(data=values, index=keys, columns=["score"]).sort_values(by = "score", ascending=True)
+        #data.plot(kind='barh')
+        #xgboost1 = 'xgboostfeatureimportancecustom.png'
+        #plt.savefig(xgboost1)
+        #plt.show()
+        #print(f"Saved feature importances plot 2 to file: {xgboost1}\n")
     # save or read in rules_list
     elif i == 11:
         saveorload = input("Would you like to save or load rules? (s/l): \n").lower()
