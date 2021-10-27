@@ -68,8 +68,8 @@ def enter_new_rule():
         if correct.lower() == 'y':
             return rule, conclusion
         else:
-            abort = input("Abort? (y) or retry adding new rule? (y/n)")
-            if abort.lower() == 'y':
+            abort = input("Retry? (y) or abort(n)? (y/n)")
+            if abort.lower() == 'n':
                 print("Aborting adding new rule")
                 return -1
             else:
@@ -170,23 +170,23 @@ def add_conclusion_no_prints(df, case, conclusion):
     df.loc[df["name"] == case, 'conclusion'] = conclusion
     return
 
-# predict case using black box (dt) and dataframe (df)
-def predict_case(df, dt, case):
+# predict case using black box (bb) and dataframe (df)
+def predict_case(df, bb, case):
     # xgboost uses a dmatrix instead of dataframe
-    if dt == bst:
+    if bb == bst:
         # create the dmatrix needed for xgboost
         dmatrix = xgb.DMatrix(X, label=y)
         # get dataframe index of given case
         index = df.index[df['name']==case].tolist()[0]
         # ypred gives an array of numbers - round these numbers to get the encoded values
-        ypred = dt.predict(dmatrix)
+        ypred = bb.predict(dmatrix)
         # inverse transform these numbers to get the class
         r = list(le.inverse_transform([round(ypred[index])]))
         return r[0]
     else:
         c = df.loc[df["name"] == case]
-        c = c.iloc[:,1:-4]
-        r = dt.predict(c) # gives an encoded array
+        c = c.iloc[:,1:-3]
+        r = bb.predict(c) # gives an encoded array
         r = le.inverse_transform(r) # unencode it
         return r[0]
 
@@ -293,12 +293,13 @@ print("initialising rules_list and rules_count...", end='')
 NUM_RULES = 100 # magic number - max 100 rules
 rules_list = [None] * NUM_RULES
 # Note: rules_list[0] is always None - rules_list[1] is the head
-# rules_count = number of rules currently in list. Increment before adding rule
+# rules_count = increment before/after adding a new rule
+#rules_count = 0
+#rules_list[1] = Node(1, "`milk` == 1", "mammal", "mammal", 2, "aardvark", [])
+#rules_count += 1
+#rules_list[2] = Node(2, "`acquatic` == 1", "fish", "fish", None, "bass", [])
+#rules_count += 1
 rules_count = 0
-rules_list[1] = Node(1, "`milk` == 1", "mammal", "mammal", 2, "aardvark", [])
-rules_count += 1
-rules_list[2] = Node(2, "`acquatic` == 1", "fish", "fish", None, "bass", [])
-rules_count += 1
 print("Done")
 
 # data imported must be csv file with:
@@ -341,10 +342,18 @@ else:
 df['conclusion'] = '-'
 print("Done")
 
-# train decision tree
-print(f"training decision tree as \"black box\" classifier...", end='')
+# separate data
 X = df.iloc[:,1:-3] # X-values: leave out last 3 columns (target, encoded, conclusion) as well as first column (name)
 y = df.iloc[:,-2].astype('int') # take target as encoded column (second last column). note: all values must be numeric - hence encoded
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1, test_size=0.20) # split with 80/20 train/test
+
+# special df - need the names of cases in the test set (X_test doesn't contain names). random state keeps selections the same
+# used in evaluation
+specialX = df.iloc[:,:-3]
+_, special_X_test, _, _ = train_test_split(specialX, y, random_state=1, test_size=0.20) # split with 80/20 train/test
+
+# train decision tree
+print(f"training decision tree as \"black box\" classifier...", end='')
 dt = DecisionTreeClassifier()
 dt = dt.fit(X, y)
 
@@ -401,8 +410,9 @@ while (True):
     print("Press (8) to show decision path of decision tree")
     print("Press (9) to show feature importances from random forest")
     print("Press (10) to show feature importances from xgboost")
-    print("Press (11) to save/loadrules_list to/from a file")
-    print("Press (12) to change black box model")
+    print("Press (11) for evaluation")
+    print("Press (12) to save/loadrules_list to/from a file")
+    print("Press (13) to change black box model")
     #print("Press (q) to quit")
     i = int(input())
     # print cases dataframe
@@ -456,7 +466,7 @@ while (True):
         for case in df['name']:
             # run case through black box and observe prediction 1
             print(f"Case: {case}")
-            pred1 = predict_case(df, bb , case)    
+            pred1 = predict_case(df, bb, case)    
             print(f"Black box classification: {pred1}") 
             # run case through rules and observe prediction 2
             last_rule = run_case_no_prints(df, case)
@@ -520,7 +530,12 @@ while (True):
         #    print(path)
         #print("Co-ordinates for 1's in matrix only")
         #print(dt_path)
-
+        
+        # size of dt
+        print(f"Total number of nodes in tree: {dt.tree_.node_count}")   
+        print(f"Number of leaf nodes in tree: {dt.tree_.n_leaves}") 
+        print(f"Number of decision nodes in tree: {dt.tree_.node_count - dt.tree_.n_leaves}")  
+        
         node_indicator = dt.decision_path(X) # the decision path in the tree - a matrix. 
         leaf_id = dt.apply(X) # id of leaf node for each case in X
         feature = dt.tree_.feature # numeric version of features used by dt
@@ -635,8 +650,100 @@ while (True):
         #plt.savefig(xgboost1)
         #plt.show()
         #print(f"Saved feature importances plot 2 to file: {xgboost1}\n")
-    # save or read in rules_list
+    
+    # evaluation
     elif i == 11:
+        print("Evaluation\n")
+        # learning curve evaluation - using code from option 4
+        # each time a rule is added, run the rules on the entire test set (meaning the running is not interrupted by incorrect rules)
+        # take the number of correct cases each time
+        # repeat
+        correct_total = []
+        incorrect_total = []
+        while (1):
+            for case in df['name']:
+                # run case through black box and observe prediction 1
+                print(f"Case: {case}")
+                pred1 = predict_case(df, bb, case)   
+                print(f"Black box classification: {pred1}") 
+                # run case through rules and observe prediction 2
+                last_rule = run_case_no_prints(df, case)
+                caserow = df.loc[df["name"] == case]
+                pred2 = caserow.iloc[0]["conclusion"]
+                print(f"RDR classification: {pred2}") 
+                # if match - move to next case
+                # else - add a new rule to give prediction 1 for case
+                if pred1 == pred2:
+                    print("Conclusion correct. Move onto next case\n")
+                # conclusion missing - add new cornerstone rule
+                elif pred2 == "-":
+                    print("Conclusion missing. The rules application is shown below: \n")
+                    run_case(df, case) # run case again just to print
+                    print(f"\nAdd a new cornerstone rule to correctly classify {case}\n")
+                    rule, conclusion = enter_new_rule()
+                    rules_list = add_cornerstone_rule(rule, conclusion, conclusion, None, case, rules_count, rules_list)
+                    rules_count += 1
+                    print("New cornerstone rule added:")
+                    n = rules_list[rules_count]
+                    print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+                    break
+                # conclusion incorrect - add refinement rule
+                else:
+                    print("Conclusion incorrect. The rules application is shown below: \n")
+                    run_case(df, case) # run case again just to print
+                    print(f"\nAdd a refinement rule to correctly classify {case}\n")
+                    rules_list = add_refinement_rule(last_rule, case, rules_count, rules_list, df)
+                    rules_count += 1 
+                    break
+        
+            # go through all cases in TEST SET, dont stop, count all correct RDR conclusions and incorrect conclusions
+            print("\nTest rules on test set: ")
+            correct = 0
+            incorrect = 0
+            for case in special_X_test['name']: # a X_test that has name
+                print(f"Case: {case}")     
+                pred1 = predict_case(df, bb, case)   
+                print(f"Black box classification: {pred1}") 
+                # run case through rules and observe prediction 2
+                last_rule = run_case_no_prints(df, case)
+                caserow = df.loc[df["name"] == case]
+                pred2 = caserow.iloc[0]["conclusion"]
+                print(f"RDR classification: {pred2}") 
+                # if match - score += 1
+                # else - none
+                if pred1 == pred2:
+                    print("RDR correct")
+                    correct += 1
+                else:
+                    print("RDR incorrect")
+                    incorrect += 1
+        
+            print(f"\nAfter adding {rules_count} rules: ")
+            print(f"Correct classifications: {correct}")
+            print(f"Incorrect classifications: {incorrect}\n")
+            correct_total.append(correct)
+            incorrect_total.append(incorrect)
+            x_axis = np.arange(1, rules_count + 1)
+            print(rules_count)
+            print(x_axis)
+            print(correct_total)
+            print(incorrect_total)
+            if incorrect == 0:
+                print("All cases classified correctly by RDR")
+                break
+            input("Press enter to continue: ")
+        # plot the evaluation
+        plt.plot(x_axis, correct_total, label="correct")
+        plt.plot(x_axis, incorrect_total, label="incorrect")
+        plt.xlabel("Number of rules added")
+        plt.ylabel("Number of correctly/incorrectly classified cases")
+        plt.title("Learning curve evaluation")
+        plt.legend()
+        plt.savefig('learningcurve.png')
+        plt.show()
+        
+    # save or read in rules_list
+    elif i == 12:
         saveorload = input("Would you like to save or load rules? (s/l): \n").lower()
         if saveorload == "s" or saveorload == "save":
             print("WARNING: choose a name for a file that does not exist")
@@ -648,7 +755,7 @@ while (True):
                 if n == None:
                     f.write("None\n")
                 else:
-                    f.write('{},{},{},{},{},{},{}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+                    f.write('{},{},{},{},{},{},{}\n'.format(n.num, n.data, n.con, int(str(n.nextTrue)), int(str(n.nextFalse)), n.case, list(n.true_cases)))
             f.close()
             print(f"Rules in rules_list saved to file: {name}")
         else:
@@ -674,7 +781,7 @@ while (True):
                     rules_list[i] = Node(num=x[0], data=x[1], con=x[2], nextTrue=x[3], nextFalse=x[4], case=x[5], true_cases=x[6])
                     i += 1
     # change black box model
-    elif i == 12:
+    elif i == 13:
         bb = choose_black_box()
     else: 
         exit()
