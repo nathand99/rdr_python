@@ -13,6 +13,7 @@ from IPython.display import Image
 from pydot import graph_from_dot_data
 import matplotlib.pyplot as plt
 from sklearn.inspection import permutation_importance
+import time
 
 class Node:
     def __init__(self, num=None, data=None, con=None, nextTrue=None, nextFalse=None, case=None, true_cases=[]):
@@ -292,6 +293,7 @@ print("initialising rules_list and rules_count...", end='')
 # Node(rules_count, rule, conclusion, conclusion, last_rule.nextTrue, case, true_list)
 NUM_RULES = 100 # magic number - max 100 rules
 rules_list = [None] * NUM_RULES
+time_list = [None] * NUM_RULES
 # Note: rules_list[0] is always None - rules_list[1] is the head
 # rules_count = increment before/after adding a new rule
 #rules_count = 0
@@ -411,7 +413,7 @@ while (True):
     print("Press (9) to show feature importances from random forest")
     print("Press (10) to show feature importances from xgboost")
     print("Press (11) for evaluation")
-    print("Press (12) to save/loadrules_list to/from a file")
+    print("Press (12) to save/load rules_list to/from a file")
     print("Press (13) to change black box model")
     #print("Press (q) to quit")
     i = int(input())
@@ -482,9 +484,13 @@ while (True):
                 print("Conclusion missing. The rules application is shown below: \n")
                 run_case(df, case) # run case again just to print
                 print(f"\nAdd a new cornerstone rule to correctly classify {case}\n")
+                start = time.time()
                 rule, conclusion = enter_new_rule()
+                end = time.time()
                 rules_list = add_cornerstone_rule(rule, conclusion, conclusion, None, case, rules_count, rules_list)
                 rules_count += 1
+                time_list[rules_count] = end - start
+                print("Time taken to add rule: {:.2f}s".format(time_list[rules_count]))
                 print("New cornerstone rule added:")
                 n = rules_list[rules_count]
                 print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
@@ -505,12 +511,12 @@ while (True):
     elif i == 5:
         print("Rules")
         #print("Number\tRule\t\tConclusion\t\tTRUEBranch\t\tFALSEBranch\t\tCase")
-        print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases"))
+        print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases", "Time taken (s)"))
         i = 1
         while i <= rules_count:
             n = rules_list[i]
             #print(f"{n.num}\t{n.data}\t\t{n.con}\t\t{n.nextTrue}\t\t{n.nextFalse}\t\t{n.case}")
-            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12.2f}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases), time_list[i]))
             i += 1
     # clear all rules
     elif i == 6:
