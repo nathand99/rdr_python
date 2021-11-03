@@ -511,12 +511,14 @@ while (True):
     elif i == 5:
         print("Rules")
         #print("Number\tRule\t\tConclusion\t\tTRUEBranch\t\tFALSEBranch\t\tCase")
-        print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases", "Time taken (s)"))
+        #print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases", "Time taken (s)"))
+        print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases"))
         i = 1
         while i <= rules_count:
             n = rules_list[i]
             #print(f"{n.num}\t{n.data}\t\t{n.con}\t\t{n.nextTrue}\t\t{n.nextFalse}\t\t{n.case}")
-            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12.2f}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases), time_list[i]))
+            #print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12.2f}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases), time_list[i])) - put this back when timing is in save/load
+            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
             i += 1
     # clear all rules
     elif i == 6:
@@ -606,6 +608,7 @@ while (True):
         ax.set_ylabel("Mean decrease in impurity")
         fig.tight_layout()
         plt.savefig('randomforestfeatureimportancesMDI.png')
+        plt.show()
 
         # plot - MAD (mean accuracy decrease) - a bit wild
         result = permutation_importance(
@@ -644,7 +647,7 @@ while (True):
         coverplot = "xgboostplot_importance_cover.png"
         plt.savefig(coverplot)
         print(f"Saved feature importances by cover to file: {coverplot}")
-        
+        plt.show()
         # custom feature importance - does the same as above
         #feature_important = bst.get_score(importance_type='weight')
         #keys = list(feature_important.keys())
@@ -761,7 +764,7 @@ while (True):
                 if n == None:
                     f.write("None\n")
                 else:
-                    f.write('{},{},{},{},{},{},{}\n'.format(n.num, n.data, n.con, int(str(n.nextTrue)), int(str(n.nextFalse)), n.case, list(n.true_cases)))
+                    f.write('{},{},{},{},{},{},{}\n'.format(n.num, n.data, n.con, n.nextTrue, n.nextFalse, n.case, n.true_cases))
             f.close()
             print(f"Rules in rules_list saved to file: {name}")
         else:
@@ -784,7 +787,17 @@ while (True):
                 else:
                     n = n.split("\n")
                     x = n[0].split(",")
-                    rules_list[i] = Node(num=x[0], data=x[1], con=x[2], nextTrue=x[3], nextFalse=x[4], case=x[5], true_cases=x[6])
+                    # data is all strings. try to get an int, if that breaks take the string
+                    try:
+                        nt = int(x[3])
+                    except:
+                        nt = x[3]
+                    try:
+                        nf = int(x[4])
+                    except:
+                        nf = x[4]
+                    tc = list(map(int, eval(x[6])))
+                    rules_list[i] = Node(num=int(x[0]), data=x[1], con=x[2], nextTrue=nt, nextFalse=nf, case=x[5], true_cases=tc)
                     i += 1
     # change black box model
     elif i == 13:
