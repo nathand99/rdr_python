@@ -80,6 +80,9 @@ def enter_new_rule():
 # run through rules for a single case - modifys conclusion for case if needed
 def run_case(df, case):
     n = rules_list[1]
+    # print case if no rules
+    if n is None:
+        print(df.query("name==" + "'" + case + "'"))
     while n is not None:
         # n is a node in rules_list
         if isinstance(n, Node):
@@ -582,10 +585,10 @@ while (True):
                     inequality=threshold_sign,
                     threshold=threshold[node_id]))
             if threshold_sign == "<=":
-                print(f"value for {features[node_id]} <= {threshold[node_id]} is TRUE. Go to TRUE branch - which is node {dt.tree_.children_left[node_id]}")
+                print(f"value for ({features[node_id]} <= {threshold[node_id]}) is TRUE. Go to TRUE branch - which is node {dt.tree_.children_left[node_id]}")
                 #children_left[i]
             else:
-                print(f"value for {features[node_id]} <= {threshold[node_id]} is FALSE. Go to FALSE branch - which is node {dt.tree_.children_right[node_id]}")
+                print(f"value for ({features[node_id]} <= {threshold[node_id]}) is FALSE. Go to FALSE branch - which is node {dt.tree_.children_right[node_id]}")
         print()
     # feature importances of random forest
     elif i == 9:
