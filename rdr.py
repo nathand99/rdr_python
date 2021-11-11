@@ -185,13 +185,15 @@ def predict_case(df, bb, case):
         # ypred gives an array of numbers - round these numbers to get the encoded values
         ypred = bb.predict(dmatrix)
         # inverse transform these numbers to get the class
-        r = list(le.inverse_transform([round(ypred[index])]))
+        if enc_nes:
+            r = list(le.inverse_transform([round(ypred[index])]))
         return r[0]
     else:
         c = df.loc[df["name"] == case]
         c = c.iloc[:,1:-3]
         r = bb.predict(c) # gives an encoded array
-        r = le.inverse_transform(r) # unencode it
+        if enc_nes:
+            r = le.inverse_transform(r) # unencode it
         return r[0]
 
 # add new rule to rules_list - cornerstone. true_cases = []. returns an updated rules_list
@@ -232,10 +234,10 @@ def add_refinement_rule(last_rule, case, rules_count, rules_list, df):
     # 1. must show rules that already apply. len(true_list) > 1 should always be true
     if len(true_list) > 0:
         print("Rules true for this case up to this point")
-        print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case"))
+        print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<20}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case"))
         for i in true_list:
             n = rules_list[i]
-            print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case))
+            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<20}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case))
     # 2. must show attributes that are different and which a rule can be made
     # look up case for the last true rule. Compare with current case and show which features are different
         query1 = "name==" + "'" + case + "'"
@@ -308,23 +310,26 @@ rules_count = 0
 print("Done")
 
 # data imported must be csv file with:
-# - the first row giving attribute names. 
+# - the first row giving feature names. 
 # - the first column containing the names of each case. Labelled "name"
 # - the last column containing the target class of each case. Labelled "target"
 # - numeric data only. target values allowed to be text - they will be transformed
 # care for missing or weird values
 # an empty conclusion column will be added
-filename = 'animalsmodified.csv'
-print(f"importing data from {filename} into dataframe...", end='')
-df = pd.read_csv(filename)
+filename = 'nbamodified2'#.csv
+print(f"importing data from {filename}.csv into dataframe...", end='')
+df = pd.read_csv(filename+'.csv')
+df = df.dropna()
 print("Done")
 
 # add encoded column. encoded is used by sklearn as the target column 
 # target values will be transformed to numeric in the encoded column 
 # if target values are already numeric - copy to encoded
+enc_nes = True # encoding necessary?
 print(f"modifying dataframe by adding columns encoded and conclusion...", end='')
 if df.dtypes['target'] == np.int64 or df.dtypes['target'] == np.float64:
     df['encoded'] = df['target']
+    enc_nes = False
 else:
     # change target to numeric value. Note: the numeric value is in alphabetical order of the targets
     targets = np.unique(df['target'].values) # targets_list
@@ -348,6 +353,10 @@ df['conclusion'] = '-'
 print("Done")
 
 # separate data
+print(f"separating data...", end='')
+# remove '
+df.columns = df.columns.str.replace("'", "")
+df["name"] = df["name"].astype(str)
 X = df.iloc[:,1:-3] # X-values: leave out last 3 columns (target, encoded, conclusion) as well as first column (name)
 y = df.iloc[:,-2].astype('int') # take target as encoded column (second last column). note: all values must be numeric - hence encoded
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1, test_size=0.20) # split with 80/20 train/test
@@ -356,10 +365,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1, test_s
 # used in evaluation
 specialX = df.iloc[:,:-3]
 _, special_X_test, _, _ = train_test_split(specialX, y, random_state=1, test_size=0.20) # split with 80/20 train/test
+print("Done") 
 
 # train decision tree
 print(f"training decision tree as \"black box\" classifier...", end='')
 dt = DecisionTreeClassifier()
+X.fillna(X.mean(), inplace=True)
 dt = dt.fit(X, y)
 
 # show the dt - in file
@@ -372,10 +383,10 @@ dot_data = StringIO()
 export_graphviz(dt, out_file=dot_data, feature_names=feature_names, class_names=target_names , filled=True)
 (graph, ) = graph_from_dot_data(dot_data.getvalue())
 # print(dot_data.getvalue()) - dot data - print to find node numers in dt
-treefile = "tree2.png"
+treefile = f"{filename}tree.png"
 graph.write_png(treefile)
 Image(graph.create_png())
-print("Done")
+print("Done") 
 #predict
 #y_pred = dt.predict(X_test)
 #confusion matrix
@@ -416,8 +427,9 @@ while (True):
     print("Press (9) to show feature importances from random forest")
     print("Press (10) to show feature importances from xgboost")
     print("Press (11) for evaluation")
-    print("Press (12) to save/load rules_list to/from a file")
-    print("Press (13) to change black box model")
+    print("Press (12) to run rules on all cases and DONT STOP with a count at the end")
+    print("Press (13) to save/load rules_list to/from a file")
+    print("Press (14) to change black box model")
     #print("Press (q) to quit")
     i = int(input())
     # print cases dataframe
@@ -431,7 +443,7 @@ while (True):
     # run rules on a single case
     elif i == 3:
         # TODO add check if case is legit
-        case = input("Which case to run?\n").lower()
+        case = input("Which case to run?\n")
         # run case through black box and observe prediction 1
         print(f"Case: {case}")
         pred1 = predict_case(df, bb, case)    
@@ -455,7 +467,7 @@ while (True):
             rules_count += 1
             print("New cornerstone rule added:")
             n = rules_list[rules_count]
-            print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<20} {:<12}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
             break
         # conclusion incorrect - add refinement rule
         else:
@@ -496,7 +508,7 @@ while (True):
                 print("Time taken to add rule: {:.2f}s".format(time_list[rules_count]))
                 print("New cornerstone rule added:")
                 n = rules_list[rules_count]
-                print('{:<12} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+                print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<20} {:<12}\n'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
                 break
             # conclusion incorrect - add refinement rule
             else:
@@ -515,13 +527,13 @@ while (True):
         print("Rules")
         #print("Number\tRule\t\tConclusion\t\tTRUEBranch\t\tFALSEBranch\t\tCase")
         #print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases", "Time taken (s)"))
-        print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases"))
+        print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<20} {:<12}'.format("Number", "Rule", "Conclusion", "TRUEBranch", "FALSEBranch", "Case", "true_cases"))
         i = 1
         while i <= rules_count:
             n = rules_list[i]
             #print(f"{n.num}\t{n.data}\t\t{n.con}\t\t{n.nextTrue}\t\t{n.nextFalse}\t\t{n.case}")
             #print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12} {:<12.2f}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases), time_list[i])) - put this back when timing is in save/load
-            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<12} {:<12}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
+            print('{:<12} {:<32} {:<12} {:<12} {:<12} {:<20} {:<12}'.format(n.num, n.data, n.con, str(n.nextTrue), str(n.nextFalse), n.case, str(n.true_cases)))
             i += 1
     # clear all rules
     elif i == 6:
@@ -753,9 +765,33 @@ while (True):
         plt.legend()
         plt.savefig('learningcurve.png')
         plt.show()
-        
-    # save or read in rules_list
+    # run rules on all cases and dont stop
     elif i == 12:
+        correct = 0
+        incorrect = 0
+        for case in df['name']: # a X_test that has name
+            print(f"Case: {case}")     
+            pred1 = predict_case(df, bb, case)   
+            print(f"Black box classification: {pred1}") 
+            # run case through rules and observe prediction 2
+            last_rule = run_case_no_prints(df, case)
+            caserow = df.loc[df["name"] == case]
+            pred2 = caserow.iloc[0]["conclusion"]
+            print(f"RDR classification: {pred2}") 
+            # if match - score += 1
+            # else - none
+            if pred1 == pred2:
+                print("RDR correct")
+                correct += 1
+            else:
+                print("RDR incorrect")
+                incorrect += 1
+        print(f"\nAfter adding {rules_count} rules: ")
+        print(f"Correct classifications: {correct}")
+        print(f"Incorrect classifications: {incorrect}\n")
+
+    # save or read in rules_list
+    elif i == 13:
         saveorload = input("Would you like to save or load rules? (s/l): \n").lower()
         if saveorload == "s" or saveorload == "save":
             print("WARNING: choose a name for a file that does not exist")
@@ -803,7 +839,7 @@ while (True):
                     rules_list[i] = Node(num=int(x[0]), data=x[1], con=x[2], nextTrue=nt, nextFalse=nf, case=x[5], true_cases=tc)
                     i += 1
     # change black box model
-    elif i == 13:
+    elif i == 14:
         bb = choose_black_box()
     else: 
         exit()
