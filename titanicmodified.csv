@@ -1,0 +1,892 @@
+name,Pclass,Sex,Age,SibSp,Parch,Fare,target
+"Braund, Mr. Owen Harris",3,0,22.0,1,0,7.25,died
+"Cumings, Mrs. John Bradley (Florence Briggs Thayer)",1,1,38.0,1,0,71.2833,lived
+"Heikkinen, Miss. Laina",3,1,26.0,0,0,7.925,lived
+"Futrelle, Mrs. Jacques Heath (Lily May Peel)",1,1,35.0,1,0,53.1,lived
+"Allen, Mr. William Henry",3,0,35.0,0,0,8.05,died
+"Moran, Mr. James",3,0,35.0,0,0,8.4583,died
+"McCarthy, Mr. Timothy J",1,0,54.0,0,0,51.8625,died
+"Palsson, Master. Gosta Leonard",3,0,2.0,3,1,21.075,died
+"Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)",3,1,27.0,0,2,11.1333,lived
+"Nasser, Mrs. Nicholas (Adele Achem)",2,1,14.0,1,0,30.0708,lived
+"Sandstrom, Miss. Marguerite Rut",3,1,4.0,1,1,16.7,lived
+"Bonnell, Miss. Elizabeth",1,1,58.0,0,0,26.55,lived
+"Saundercock, Mr. William Henry",3,0,20.0,0,0,8.05,died
+"Andersson, Mr. Anders Johan",3,0,39.0,1,5,31.275,died
+"Vestrom, Miss. Hulda Amanda Adolfina",3,1,14.0,0,0,7.8542,died
+"Hewlett, Mrs. (Mary D Kingcome) ",2,1,55.0,0,0,16.0,lived
+"Rice, Master. Eugene",3,0,2.0,4,1,29.125,died
+"Williams, Mr. Charles Eugene",2,0,2.0,0,0,13.0,lived
+"Vander Planke, Mrs. Julius (Emelia Maria Vandemoortele)",3,1,31.0,1,0,18.0,died
+"Masselmani, Mrs. Fatima",3,1,31.0,0,0,7.225,lived
+"Fynney, Mr. Joseph J",2,0,35.0,0,0,26.0,died
+"Beesley, Mr. Lawrence",2,0,34.0,0,0,13.0,lived
+"McGowan, Miss. Anna ""Annie""",3,1,15.0,0,0,8.0292,lived
+"Sloper, Mr. William Thompson",1,0,28.0,0,0,35.5,lived
+"Palsson, Miss. Torborg Danira",3,1,8.0,3,1,21.075,died
+"Asplund, Mrs. Carl Oscar (Selma Augusta Emilia Johansson)",3,1,38.0,1,5,31.3875,lived
+"Emir, Mr. Farred Chehab",3,0,38.0,0,0,7.225,died
+"Fortune, Mr. Charles Alexander",1,0,19.0,3,2,263.0,died
+"ODwyer, Miss. Ellen ""Nellie""",3,1,19.0,0,0,7.8792,lived
+"Todoroff, Mr. Lalio",3,0,19.0,0,0,7.8958,died
+"Uruchurtu, Don. Manuel E",1,0,40.0,0,0,27.7208,died
+"Spencer, Mrs. William Augustus (Marie Eugenie)",1,1,40.0,1,0,146.5208,lived
+"Glynn, Miss. Mary Agatha",3,1,40.0,0,0,7.75,lived
+"Wheadon, Mr. Edward H",2,0,66.0,0,0,10.5,died
+"Meyer, Mr. Edgar Joseph",1,0,28.0,1,0,82.1708,died
+"Holverson, Mr. Alexander Oskar",1,0,42.0,1,0,52.0,died
+"Mamee, Mr. Hanna",3,0,42.0,0,0,7.2292,lived
+"Cann, Mr. Ernest Charles",3,0,21.0,0,0,8.05,died
+"Vander Planke, Miss. Augusta Maria",3,1,18.0,2,0,18.0,died
+"Nicola-Yarred, Miss. Jamila",3,1,14.0,1,0,11.2417,lived
+"Ahlin, Mrs. Johan (Johanna Persdotter Larsson)",3,1,40.0,1,0,9.475,died
+"Turpin, Mrs. William John Robert (Dorothy Ann Wonnacott)",2,1,27.0,1,0,21.0,died
+"Kraeff, Mr. Theodor",3,0,27.0,0,0,7.8958,died
+"Laroche, Miss. Simonne Marie Anne Andree",2,1,3.0,1,2,41.5792,lived
+"Devaney, Miss. Margaret Delia",3,1,19.0,0,0,7.8792,lived
+"Rogers, Mr. William John",3,0,19.0,0,0,8.05,died
+"Lennon, Mr. Denis",3,0,19.0,1,0,15.5,died
+"ODriscoll, Miss. Bridget",3,1,19.0,0,0,7.75,lived
+"Samaan, Mr. Youssef",3,0,19.0,2,0,21.6792,died
+"Arnold-Franchi, Mrs. Josef (Josefine Franchi)",3,1,18.0,1,0,17.8,died
+"Panula, Master. Juha Niilo",3,0,7.0,4,1,39.6875,died
+"Nosworthy, Mr. Richard Cater",3,0,21.0,0,0,7.8,died
+"Harper, Mrs. Henry Sleeper (Myna Haxtun)",1,1,49.0,1,0,76.7292,lived
+"Faunthorpe, Mrs. Lizzie (Elizabeth Anne Wilkinson)",2,1,29.0,1,0,26.0,lived
+"Ostby, Mr. Engelhart Cornelius",1,0,65.0,0,1,61.9792,died
+"Woolner, Mr. Hugh",1,0,65.0,0,0,35.5,lived
+"Rugg, Miss. Emily",2,1,21.0,0,0,10.5,lived
+"Novel, Mr. Mansouer",3,0,28.5,0,0,7.2292,died
+"West, Miss. Constance Mirium",2,1,5.0,1,2,27.75,lived
+"Goodwin, Master. William Frederick",3,0,11.0,5,2,46.9,died
+"Sirayanian, Mr. Orsen",3,0,22.0,0,0,7.2292,died
+"Icard, Miss. Amelie",1,1,38.0,0,0,80.0,lived
+"Harris, Mr. Henry Birkhardt",1,0,45.0,1,0,83.475,died
+"Skoog, Master. Harald",3,0,4.0,3,2,27.9,died
+"Stewart, Mr. Albert A",1,0,4.0,0,0,27.7208,died
+"Moubarek, Master. Gerios",3,0,4.0,1,1,15.2458,lived
+"Nye, Mrs. (Elizabeth Ramell)",2,1,29.0,0,0,10.5,lived
+"Crease, Mr. Ernest James",3,0,19.0,0,0,8.1583,died
+"Andersson, Miss. Erna Alexandra",3,1,17.0,4,2,7.925,lived
+"Kink, Mr. Vincenz",3,0,26.0,2,0,8.6625,died
+"Jenkin, Mr. Stephen Curnow",2,0,32.0,0,0,10.5,died
+"Goodwin, Miss. Lillian Amy",3,1,16.0,5,2,46.9,died
+"Hood, Mr. Ambrose Jr",2,0,21.0,0,0,73.5,died
+"Chronopoulos, Mr. Apostolos",3,0,26.0,1,0,14.4542,died
+"Bing, Mr. Lee",3,0,32.0,0,0,56.4958,lived
+"Moen, Mr. Sigurd Hansen",3,0,25.0,0,0,7.65,died
+"Staneff, Mr. Ivan",3,0,25.0,0,0,7.8958,died
+"Moutal, Mr. Rahamin Haim",3,0,25.0,0,0,8.05,died
+"Caldwell, Master. Alden Gates",2,0,0.83,0,2,29.0,lived
+"Dowdell, Miss. Elizabeth",3,1,30.0,0,0,12.475,lived
+"Waelens, Mr. Achille",3,0,22.0,0,0,9.0,died
+"Sheerlinck, Mr. Jan Baptist",3,0,29.0,0,0,9.5,lived
+"McDermott, Miss. Brigdet Delia",3,1,29.0,0,0,7.7875,lived
+"Carrau, Mr. Francisco M",1,0,28.0,0,0,47.1,died
+"Ilett, Miss. Bertha",2,1,17.0,0,0,10.5,lived
+"Backstrom, Mrs. Karl Alfred (Maria Mathilda Gustafsson)",3,1,33.0,3,0,15.85,lived
+"Ford, Mr. William Neal",3,0,16.0,1,3,34.375,died
+"Slocovski, Mr. Selman Francis",3,0,16.0,0,0,8.05,died
+"Fortune, Miss. Mabel Helen",1,1,23.0,3,2,263.0,lived
+"Celotti, Mr. Francesco",3,0,24.0,0,0,8.05,died
+"Christmann, Mr. Emil",3,0,29.0,0,0,8.05,died
+"Andreasson, Mr. Paul Edvin",3,0,20.0,0,0,7.8542,died
+"Chaffee, Mr. Herbert Fuller",1,0,46.0,1,0,61.175,died
+"Dean, Mr. Bertram Frank",3,0,26.0,1,2,20.575,died
+"Coxon, Mr. Daniel",3,0,59.0,0,0,7.25,died
+"Shorney, Mr. Charles Joseph",3,0,59.0,0,0,8.05,died
+"Goldschmidt, Mr. George B",1,0,71.0,0,0,34.6542,died
+"Greenfield, Mr. William Bertram",1,0,23.0,0,1,63.3583,lived
+"Doling, Mrs. John T (Ada Julia Bone)",2,1,34.0,0,1,23.0,lived
+"Kantor, Mr. Sinai",2,0,34.0,1,0,26.0,died
+"Petranec, Miss. Matilda",3,1,28.0,0,0,7.8958,died
+"Petroff, Mr. Pastcho (""Pentcho"")",3,0,28.0,0,0,7.8958,died
+"White, Mr. Richard Frasar",1,0,21.0,0,1,77.2875,died
+"Johansson, Mr. Gustaf Joel",3,0,33.0,0,0,8.6542,died
+"Gustafsson, Mr. Anders Vilhelm",3,0,37.0,2,0,7.925,died
+"Mionoff, Mr. Stoytcho",3,0,28.0,0,0,7.8958,died
+"Salkjelsvik, Miss. Anna Kristine",3,1,21.0,0,0,7.65,lived
+"Moss, Mr. Albert Johan",3,0,21.0,0,0,7.775,lived
+"Rekic, Mr. Tido",3,0,38.0,0,0,7.8958,died
+"Moran, Miss. Bertha",3,1,38.0,1,0,24.15,lived
+"Porter, Mr. Walter Chamberlain",1,0,47.0,0,0,52.0,died
+"Zabour, Miss. Hileni",3,1,14.5,1,0,14.4542,died
+"Barton, Mr. David John",3,0,22.0,0,0,8.05,died
+"Jussila, Miss. Katriina",3,1,20.0,1,0,9.825,died
+"Attalah, Miss. Malake",3,1,17.0,0,0,14.4583,died
+"Pekoniemi, Mr. Edvard",3,0,21.0,0,0,7.925,died
+"Connors, Mr. Patrick",3,0,70.5,0,0,7.75,died
+"Turpin, Mr. William John Robert",2,0,29.0,1,0,21.0,died
+"Baxter, Mr. Quigg Edmond",1,0,24.0,0,1,247.5208,died
+"Andersson, Miss. Ellis Anna Maria",3,1,2.0,4,2,31.275,died
+"Hickman, Mr. Stanley George",2,0,21.0,2,0,73.5,died
+"Moore, Mr. Leonard Charles",3,0,21.0,0,0,8.05,died
+"Nasser, Mr. Nicholas",2,0,32.5,1,0,30.0708,died
+"Webber, Miss. Susan",2,1,32.5,0,0,13.0,lived
+"White, Mr. Percival Wayland",1,0,54.0,0,1,77.2875,died
+"Nicola-Yarred, Master. Elias",3,0,12.0,1,0,11.2417,lived
+"McMahon, Mr. Martin",3,0,12.0,0,0,7.75,died
+"Madsen, Mr. Fridtjof Arne",3,0,24.0,0,0,7.1417,lived
+"Peter, Miss. Anna",3,1,24.0,1,1,22.3583,lived
+"Ekstrom, Mr. Johan",3,0,45.0,0,0,6.975,died
+"Drazenoic, Mr. Jozef",3,0,33.0,0,0,7.8958,died
+"Coelho, Mr. Domingos Fernandeo",3,0,20.0,0,0,7.05,died
+"Robins, Mrs. Alexander A (Grace Charity Laury)",3,1,47.0,1,0,14.5,died
+"Weisz, Mrs. Leopold (Mathilde Francoise Pede)",2,1,29.0,1,0,26.0,lived
+"Sobey, Mr. Samuel James Hayden",2,0,25.0,0,0,13.0,died
+"Richard, Mr. Emile",2,0,23.0,0,0,15.0458,died
+"Newsom, Miss. Helen Monypeny",1,1,19.0,0,2,26.2833,lived
+"Futrelle, Mr. Jacques Heath",1,0,37.0,1,0,53.1,died
+"Osen, Mr. Olaf Elon",3,0,16.0,0,0,9.2167,died
+"Giglio, Mr. Victor",1,0,24.0,0,0,79.2,died
+"Boulos, Mrs. Joseph (Sultana)",3,1,24.0,0,2,15.2458,died
+"Nysten, Miss. Anna Sofia",3,1,22.0,0,0,7.75,lived
+"Hakkarainen, Mrs. Pekka Pietari (Elin Matilda Dolck)",3,1,24.0,1,0,15.85,lived
+"Burke, Mr. Jeremiah",3,0,19.0,0,0,6.75,died
+"Andrew, Mr. Edgardo Samuel",2,0,18.0,0,0,11.5,died
+"Nicholls, Mr. Joseph Charles",2,0,19.0,1,1,36.75,died
+"Andersson, Mr. August Edvard (""Wennerstrom"")",3,0,27.0,0,0,7.7958,lived
+"Ford, Miss. Robina Maggie ""Ruby""",3,1,9.0,2,2,34.375,died
+"Navratil, Mr. Michel (""Louis M Hoffman"")",2,0,36.5,0,2,26.0,died
+"Byles, Rev. Thomas Roussel Davids",2,0,42.0,0,0,13.0,died
+"Bateman, Rev. Robert James",2,0,51.0,0,0,12.525,died
+"Pears, Mrs. Thomas (Edith Wearne)",1,1,22.0,1,0,66.6,lived
+"Meo, Mr. Alfonzo",3,0,55.5,0,0,8.05,died
+"van Billiard, Mr. Austin Blyler",3,0,40.5,0,2,14.5,died
+"Olsen, Mr. Ole Martin",3,0,40.5,0,0,7.3125,died
+"Williams, Mr. Charles Duane",1,0,51.0,0,1,61.3792,died
+"Gilnagh, Miss. Katherine ""Katie""",3,1,16.0,0,0,7.7333,lived
+"Corn, Mr. Harry",3,0,30.0,0,0,8.05,died
+"Smiljanic, Mr. Mile",3,0,30.0,0,0,8.6625,died
+"Sage, Master. Thomas Henry",3,0,30.0,8,2,69.55,died
+"Cribb, Mr. John Hatfield",3,0,44.0,0,1,16.1,died
+"Watt, Mrs. James (Elizabeth ""Bessie"" Inglis Milne)",2,1,40.0,0,0,15.75,lived
+"Bengtsson, Mr. John Viktor",3,0,26.0,0,0,7.775,died
+"Calic, Mr. Jovo",3,0,17.0,0,0,8.6625,died
+"Panula, Master. Eino Viljami",3,0,1.0,4,1,39.6875,died
+"Goldsmith, Master. Frank John William ""Frankie""",3,0,9.0,0,2,20.525,lived
+"Chibnall, Mrs. (Edith Martha Bowerman)",1,1,9.0,0,1,55.0,lived
+"Skoog, Mrs. William (Anna Bernhardina Karlsson)",3,1,45.0,1,4,27.9,died
+"Baumann, Mr. John D",1,0,45.0,0,0,25.925,died
+"Ling, Mr. Lee",3,0,28.0,0,0,56.4958,died
+"Van der hoef, Mr. Wyckoff",1,0,61.0,0,0,33.5,died
+"Rice, Master. Arthur",3,0,4.0,4,1,29.125,died
+"Johnson, Miss. Eleanor Ileen",3,1,1.0,1,1,11.1333,lived
+"Sivola, Mr. Antti Wilhelm",3,0,21.0,0,0,7.925,died
+"Smith, Mr. James Clinch",1,0,56.0,0,0,30.6958,died
+"Klasen, Mr. Klas Albin",3,0,18.0,1,1,7.8542,died
+"Lefebre, Master. Henry Forbes",3,0,18.0,3,1,25.4667,died
+"Isham, Miss. Ann Elizabeth",1,1,50.0,0,0,28.7125,died
+"Hale, Mr. Reginald",2,0,30.0,0,0,13.0,died
+"Leonard, Mr. Lionel",3,0,36.0,0,0,0.0,died
+"Sage, Miss. Constance Gladys",3,1,36.0,8,2,69.55,died
+"Pernot, Mr. Rene",2,0,36.0,0,0,15.05,died
+"Asplund, Master. Clarence Gustaf Hugo",3,0,9.0,4,2,31.3875,died
+"Becker, Master. Richard F",2,0,1.0,2,1,39.0,lived
+"Kink-Heilmann, Miss. Luise Gretchen",3,1,4.0,0,2,22.025,lived
+"Rood, Mr. Hugh Roscoe",1,0,4.0,0,0,50.0,died
+"OBrien, Mrs. Thomas (Johanna ""Hannah"" Godfrey)",3,1,4.0,1,0,15.5,lived
+"Romaine, Mr. Charles Hallace (""Mr C Rolmane"")",1,0,45.0,0,0,26.55,lived
+"Bourke, Mr. John",3,0,40.0,1,1,15.5,died
+"Turcin, Mr. Stjepan",3,0,36.0,0,0,7.8958,died
+"Pinsky, Mrs. (Rosa)",2,1,32.0,0,0,13.0,lived
+"Carbines, Mr. William",2,0,19.0,0,0,13.0,died
+"Andersen-Jensen, Miss. Carla Christine Nielsine",3,1,19.0,1,0,7.8542,lived
+"Navratil, Master. Michel M",2,0,3.0,1,1,26.0,lived
+"Brown, Mrs. James Joseph (Margaret Tobin)",1,1,44.0,0,0,27.7208,lived
+"Lurette, Miss. Elise",1,1,58.0,0,0,146.5208,lived
+"Mernagh, Mr. Robert",3,0,58.0,0,0,7.75,died
+"Olsen, Mr. Karl Siegwart Andreas",3,0,42.0,0,1,8.4042,died
+"Madigan, Miss. Margaret ""Maggie""",3,1,42.0,0,0,7.75,lived
+"Yrois, Miss. Henriette (""Mrs Harbeck"")",2,1,24.0,0,0,13.0,died
+"Vande Walle, Mr. Nestor Cyriel",3,0,28.0,0,0,9.5,died
+"Sage, Mr. Frederick",3,0,28.0,8,2,69.55,died
+"Johanson, Mr. Jakob Alfred",3,0,34.0,0,0,6.4958,died
+"Youseff, Mr. Gerious",3,0,45.5,0,0,7.225,died
+"Cohen, Mr. Gurshon ""Gus""",3,0,18.0,0,0,8.05,lived
+"Strom, Miss. Telma Matilda",3,1,2.0,0,1,10.4625,died
+"Backstrom, Mr. Karl Alfred",3,0,32.0,1,0,15.85,died
+"Albimona, Mr. Nassef Cassem",3,0,26.0,0,0,18.7875,lived
+"Carr, Miss. Helen ""Ellen""",3,1,16.0,0,0,7.75,lived
+"Blank, Mr. Henry",1,0,40.0,0,0,31.0,lived
+"Ali, Mr. Ahmed",3,0,24.0,0,0,7.05,died
+"Cameron, Miss. Clear Annie",2,1,35.0,0,0,21.0,lived
+"Perkin, Mr. John Henry",3,0,22.0,0,0,7.25,died
+"Givard, Mr. Hans Kristensen",2,0,30.0,0,0,13.0,died
+"Kiernan, Mr. Philip",3,0,30.0,1,0,7.75,died
+"Newell, Miss. Madeleine",1,1,31.0,1,0,113.275,lived
+"Honkanen, Miss. Eliina",3,1,27.0,0,0,7.925,lived
+"Jacobsohn, Mr. Sidney Samuel",2,0,42.0,1,0,27.0,died
+"Bazzani, Miss. Albina",1,1,32.0,0,0,76.2917,lived
+"Harris, Mr. Walter",2,0,30.0,0,0,10.5,died
+"Sunderland, Mr. Victor Francis",3,0,16.0,0,0,8.05,lived
+"Bracken, Mr. James H",2,0,27.0,0,0,13.0,died
+"Green, Mr. George Henry",3,0,51.0,0,0,8.05,died
+"Nenkoff, Mr. Christo",3,0,51.0,0,0,7.8958,died
+"Hoyt, Mr. Frederick Maxfield",1,0,38.0,1,0,90.0,lived
+"Berglund, Mr. Karl Ivar Sven",3,0,22.0,0,0,9.35,died
+"Mellors, Mr. William John",2,0,19.0,0,0,10.5,lived
+"Lovell, Mr. John Hall (""Henry"")",3,0,20.5,0,0,7.25,died
+"Fahlstrom, Mr. Arne Jonas",2,0,18.0,0,0,13.0,died
+"Lefebre, Miss. Mathilde",3,1,18.0,3,1,25.4667,died
+"Harris, Mrs. Henry Birkhardt (Irene Wallach)",1,1,35.0,1,0,83.475,lived
+"Larsson, Mr. Bengt Edvin",3,0,29.0,0,0,7.775,died
+"Sjostedt, Mr. Ernst Adolf",2,0,59.0,0,0,13.5,died
+"Asplund, Miss. Lillian Gertrud",3,1,5.0,4,2,31.3875,lived
+"Leyson, Mr. Robert William Norman",2,0,24.0,0,0,10.5,died
+"Harknett, Miss. Alice Phoebe",3,1,24.0,0,0,7.55,died
+"Hold, Mr. Stephen",2,0,44.0,1,0,26.0,died
+"Collyer, Miss. Marjorie ""Lottie""",2,1,8.0,0,2,26.25,lived
+"Pengelly, Mr. Frederick William",2,0,19.0,0,0,10.5,died
+"Hunt, Mr. George Henry",2,0,33.0,0,0,12.275,died
+"Zabour, Miss. Thamine",3,1,33.0,1,0,14.4542,died
+"Murphy, Miss. Katherine ""Kate""",3,1,33.0,1,0,15.5,lived
+"Coleridge, Mr. Reginald Charles",2,0,29.0,0,0,10.5,died
+"Maenpaa, Mr. Matti Alexanteri",3,0,22.0,0,0,7.125,died
+"Attalah, Mr. Sleiman",3,0,30.0,0,0,7.225,died
+"Minahan, Dr. William Edward",1,0,44.0,2,0,90.0,died
+"Lindahl, Miss. Agda Thorilda Viktoria",3,1,25.0,0,0,7.775,died
+"Hamalainen, Mrs. William (Anna)",2,1,24.0,0,2,14.5,lived
+"Beckwith, Mr. Richard Leonard",1,0,37.0,1,1,52.5542,lived
+"Carter, Rev. Ernest Courtenay",2,0,54.0,1,0,26.0,died
+"Reed, Mr. James George",3,0,54.0,0,0,7.25,died
+"Strom, Mrs. Wilhelm (Elna Matilda Persson)",3,1,29.0,1,1,10.4625,died
+"Stead, Mr. William Thomas",1,0,62.0,0,0,26.55,died
+"Lobb, Mr. William Arthur",3,0,30.0,1,0,16.1,died
+"Rosblom, Mrs. Viktor (Helena Wilhelmina)",3,1,41.0,0,2,20.2125,died
+"Touma, Mrs. Darwis (Hanne Youssef Razi)",3,1,29.0,0,2,15.2458,lived
+"Thorne, Mrs. Gertrude Maybelle",1,1,29.0,0,0,79.2,lived
+"Cherry, Miss. Gladys",1,1,30.0,0,0,86.5,lived
+"Ward, Miss. Anna",1,1,35.0,0,0,512.3292,lived
+"Parrish, Mrs. (Lutie Davis)",2,1,50.0,0,1,26.0,lived
+"Smith, Mr. Thomas",3,0,50.0,0,0,7.75,died
+"Asplund, Master. Edvin Rojj Felix",3,0,3.0,4,2,31.3875,lived
+"Taussig, Mr. Emil",1,0,52.0,1,1,79.65,died
+"Harrison, Mr. William",1,0,40.0,0,0,0.0,died
+"Henry, Miss. Delia",3,1,40.0,0,0,7.75,died
+"Reeves, Mr. David",2,0,36.0,0,0,10.5,died
+"Panula, Mr. Ernesti Arvid",3,0,16.0,4,1,39.6875,died
+"Persson, Mr. Ernst Ulrik",3,0,25.0,1,0,7.775,lived
+"Graham, Mrs. William Thompson (Edith Junkins)",1,1,58.0,0,1,153.4625,lived
+"Bissette, Miss. Amelia",1,1,35.0,0,0,135.6333,lived
+"Cairns, Mr. Alexander",1,0,35.0,0,0,31.0,died
+"Tornquist, Mr. William Henry",3,0,25.0,0,0,0.0,lived
+"Mellinger, Mrs. (Elizabeth Anne Maidment)",2,1,41.0,0,1,19.5,lived
+"Natsch, Mr. Charles H",1,0,37.0,0,1,29.7,died
+"Healy, Miss. Hanora ""Nora""",3,1,37.0,0,0,7.75,lived
+"Andrews, Miss. Kornelia Theodosia",1,1,63.0,1,0,77.9583,lived
+"Lindblom, Miss. Augusta Charlotta",3,1,45.0,0,0,7.75,died
+"Parkes, Mr. Francis ""Frank""",2,0,45.0,0,0,0.0,died
+"Rice, Master. Eric",3,0,7.0,4,1,29.125,died
+"Abbott, Mrs. Stanton (Rosa Hunt)",3,1,35.0,1,1,20.25,lived
+"Duane, Mr. Frank",3,0,65.0,0,0,7.75,died
+"Olsson, Mr. Nils Johan Goransson",3,0,28.0,0,0,7.8542,died
+"de Pelsmaeker, Mr. Alfons",3,0,16.0,0,0,9.5,died
+"Dorking, Mr. Edward Arthur",3,0,19.0,0,0,8.05,lived
+"Smith, Mr. Richard William",1,0,19.0,0,0,26.0,died
+"Stankovic, Mr. Ivan",3,0,33.0,0,0,8.6625,died
+"de Mulder, Mr. Theodore",3,0,30.0,0,0,9.5,lived
+"Naidenoff, Mr. Penko",3,0,22.0,0,0,7.8958,died
+"Hosono, Mr. Masabumi",2,0,42.0,0,0,13.0,lived
+"Connolly, Miss. Kate",3,1,22.0,0,0,7.75,lived
+"Barber, Miss. Ellen ""Nellie""",1,1,26.0,0,0,78.85,lived
+"Bishop, Mrs. Dickinson H (Helen Walton)",1,1,19.0,1,0,91.0792,lived
+"Levy, Mr. Rene Jacques",2,0,36.0,0,0,12.875,died
+"Haas, Miss. Aloisia",3,1,24.0,0,0,8.85,died
+"Mineff, Mr. Ivan",3,0,24.0,0,0,7.8958,died
+"Lewy, Mr. Ervin G",1,0,24.0,0,0,27.7208,died
+"Hanna, Mr. Mansour",3,0,23.5,0,0,7.2292,died
+"Allison, Miss. Helen Loraine",1,1,2.0,1,2,151.55,died
+"Saalfeld, Mr. Adolphe",1,0,2.0,0,0,30.5,lived
+"Baxter, Mrs. James (Helene DeLaudeniere Chaput)",1,1,50.0,0,1,247.5208,lived
+"Kelly, Miss. Anna Katherine ""Annie Kate""",3,1,50.0,0,0,7.75,lived
+"McCoy, Mr. Bernard",3,0,50.0,2,0,23.25,lived
+"Johnson, Mr. William Cahoone Jr",3,0,19.0,0,0,0.0,died
+"Keane, Miss. Nora A",2,1,19.0,0,0,12.35,lived
+"Williams, Mr. Howard Hugh ""Harry""",3,0,19.0,0,0,8.05,died
+"Allison, Master. Hudson Trevor",1,0,0.92,1,2,151.55,lived
+"Fleming, Miss. Margaret",1,1,0.92,0,0,110.8833,lived
+"Penasco y Castellana, Mrs. Victor de Satode (Maria Josefa Perez de Soto y Vallejo)",1,1,17.0,1,0,108.9,lived
+"Abelson, Mr. Samuel",2,0,30.0,1,0,24.0,died
+"Francatelli, Miss. Laura Mabel",1,1,30.0,0,0,56.9292,lived
+"Hays, Miss. Margaret Bechstein",1,1,24.0,0,0,83.1583,lived
+"Ryerson, Miss. Emily Borie",1,1,18.0,2,2,262.375,lived
+"Lahtinen, Mrs. William (Anna Sylfven)",2,1,26.0,1,1,26.0,died
+"Hendekovic, Mr. Ignjac",3,0,28.0,0,0,7.8958,died
+"Hart, Mr. Benjamin",2,0,43.0,1,1,26.25,died
+"Nilsson, Miss. Helmina Josefina",3,1,26.0,0,0,7.8542,lived
+"Kantor, Mrs. Sinai (Miriam Sternin)",2,1,24.0,1,0,26.0,lived
+"Moraweck, Dr. Ernest",2,0,54.0,0,0,14.0,died
+"Wick, Miss. Mary Natalie",1,1,31.0,0,2,164.8667,lived
+"Spedden, Mrs. Frederic Oakley (Margaretta Corning Stone)",1,1,40.0,1,1,134.5,lived
+"Dennis, Mr. Samuel",3,0,22.0,0,0,7.25,died
+"Danoff, Mr. Yoto",3,0,27.0,0,0,7.8958,died
+"Slayter, Miss. Hilda Mary",2,1,30.0,0,0,12.35,lived
+"Caldwell, Mrs. Albert Francis (Sylvia Mae Harbaugh)",2,1,22.0,1,1,29.0,lived
+"Sage, Mr. George John Jr",3,0,22.0,8,2,69.55,died
+"Young, Miss. Marie Grice",1,1,36.0,0,0,135.6333,lived
+"Nysveen, Mr. Johan Hansen",3,0,61.0,0,0,6.2375,died
+"Ball, Mrs. (Ada E Hall)",2,1,36.0,0,0,13.0,lived
+"Goldsmith, Mrs. Frank John (Emily Alice Brown)",3,1,31.0,1,1,20.525,lived
+"Hippach, Miss. Jean Gertrude",1,1,16.0,0,1,57.9792,lived
+"McCoy, Miss. Agnes",3,1,16.0,2,0,23.25,lived
+"Partner, Mr. Austen",1,0,45.5,0,0,28.5,died
+"Graham, Mr. George Edward",1,0,38.0,0,1,153.4625,died
+"Vander Planke, Mr. Leo Edmondus",3,0,16.0,2,0,18.0,died
+"Frauenthal, Mrs. Henry William (Clara Heinsheimer)",1,1,16.0,1,0,133.65,lived
+"Denkoff, Mr. Mitto",3,0,16.0,0,0,7.8958,died
+"Pears, Mr. Thomas Clinton",1,0,29.0,1,0,66.6,died
+"Burns, Miss. Elizabeth Margaret",1,1,41.0,0,0,134.5,lived
+"Dahl, Mr. Karl Edwart",3,0,45.0,0,0,8.05,lived
+"Blackwell, Mr. Stephen Weart",1,0,45.0,0,0,35.5,died
+"Navratil, Master. Edmond Roger",2,0,2.0,1,1,26.0,lived
+"Fortune, Miss. Alice Elizabeth",1,1,24.0,3,2,263.0,lived
+"Collander, Mr. Erik Gustaf",2,0,28.0,0,0,13.0,died
+"Sedgwick, Mr. Charles Frederick Waddington",2,0,25.0,0,0,13.0,died
+"Fox, Mr. Stanley Hubert",2,0,36.0,0,0,13.0,died
+"Brown, Miss. Amelia ""Mildred""",2,1,24.0,0,0,13.0,lived
+"Smith, Miss. Marion Elsie",2,1,40.0,0,0,13.0,lived
+"Davison, Mrs. Thomas Henry (Mary E Finck)",3,1,40.0,1,0,16.1,lived
+"Coutts, Master. William Loch ""William""",3,0,3.0,1,1,15.9,lived
+"Dimic, Mr. Jovan",3,0,42.0,0,0,8.6625,died
+"Odahl, Mr. Nils Martin",3,0,23.0,0,0,9.225,died
+"Williams-Lambert, Mr. Fletcher Fellows",1,0,23.0,0,0,35.0,died
+"Elias, Mr. Tannous",3,0,15.0,1,1,7.2292,died
+"Arnold-Franchi, Mr. Josef",3,0,25.0,1,0,17.8,died
+"Yousif, Mr. Wazli",3,0,25.0,0,0,7.225,died
+"Vanden Steen, Mr. Leo Peter",3,0,28.0,0,0,9.5,died
+"Bowerman, Miss. Elsie Edith",1,1,22.0,0,1,55.0,lived
+"Funk, Miss. Annie Clemmer",2,1,38.0,0,0,13.0,died
+"McGovern, Miss. Mary",3,1,38.0,0,0,7.8792,lived
+"Mockler, Miss. Helen Mary ""Ellie""",3,1,38.0,0,0,7.8792,lived
+"Skoog, Mr. Wilhelm",3,0,40.0,1,4,27.9,died
+"del Carlo, Mr. Sebastiano",2,0,29.0,1,0,27.7208,died
+"Barbara, Mrs. (Catherine David)",3,1,45.0,0,1,14.4542,died
+"Asim, Mr. Adola",3,0,35.0,0,0,7.05,died
+"OBrien, Mr. Thomas",3,0,35.0,1,0,15.5,died
+"Adahl, Mr. Mauritz Nils Martin",3,0,30.0,0,0,7.25,died
+"Warren, Mrs. Frank Manley (Anna Sophia Atkinson)",1,1,60.0,1,0,75.25,lived
+"Moussa, Mrs. (Mantoura Boulos)",3,1,60.0,0,0,7.2292,lived
+"Jermyn, Miss. Annie",3,1,60.0,0,0,7.75,lived
+"Aubart, Mme. Leontine Pauline",1,1,24.0,0,0,69.3,lived
+"Harder, Mr. George Achilles",1,0,25.0,1,0,55.4417,lived
+"Wiklund, Mr. Jakob Alfred",3,0,18.0,1,0,6.4958,died
+"Beavan, Mr. William Thomas",3,0,19.0,0,0,8.05,died
+"Ringhini, Mr. Sante",1,0,22.0,0,0,135.6333,died
+"Palsson, Miss. Stina Viola",3,1,3.0,3,1,21.075,died
+"Meyer, Mrs. Edgar Joseph (Leila Saks)",1,1,3.0,1,0,82.1708,lived
+"Landergren, Miss. Aurora Adelia",3,1,22.0,0,0,7.25,lived
+"Widener, Mr. Harry Elkins",1,0,27.0,0,2,211.5,died
+"Betros, Mr. Tannous",3,0,20.0,0,0,4.0125,died
+"Gustafsson, Mr. Karl Gideon",3,0,19.0,0,0,7.775,died
+"Bidois, Miss. Rosalie",1,1,42.0,0,0,227.525,lived
+"Nakid, Miss. Maria (""Mary"")",3,1,1.0,0,2,15.7417,lived
+"Tikkanen, Mr. Juho",3,0,32.0,0,0,7.925,died
+"Holverson, Mrs. Alexander Oskar (Mary Aline Towner)",1,1,35.0,1,0,52.0,lived
+"Plotcharsky, Mr. Vasil",3,0,35.0,0,0,7.8958,died
+"Davies, Mr. Charles Henry",2,0,18.0,0,0,73.5,died
+"Goodwin, Master. Sidney Leonard",3,0,1.0,5,2,46.9,died
+"Buss, Miss. Kate",2,1,36.0,0,0,13.0,lived
+"Sadlier, Mr. Matthew",3,0,36.0,0,0,7.7292,died
+"Lehmann, Miss. Bertha",2,1,17.0,0,0,12.0,lived
+"Carter, Mr. William Ernest",1,0,36.0,1,2,120.0,lived
+"Jansson, Mr. Carl Olof",3,0,21.0,0,0,7.7958,lived
+"Gustafsson, Mr. Johan Birger",3,0,28.0,2,0,7.925,died
+"Newell, Miss. Marjorie",1,1,23.0,1,0,113.275,lived
+"Sandstrom, Mrs. Hjalmar (Agnes Charlotta Bengtsson)",3,1,24.0,0,2,16.7,lived
+"Johansson, Mr. Erik",3,0,22.0,0,0,7.7958,died
+"Olsson, Miss. Elina",3,1,31.0,0,0,7.8542,died
+"McKane, Mr. Peter David",2,0,46.0,0,0,26.0,died
+"Pain, Dr. Alfred",2,0,23.0,0,0,10.5,died
+"Trout, Mrs. William H (Jessie L)",2,1,28.0,0,0,12.65,lived
+"Niskanen, Mr. Juha",3,0,39.0,0,0,7.925,lived
+"Adams, Mr. John",3,0,26.0,0,0,8.05,died
+"Jussila, Miss. Mari Aina",3,1,21.0,1,0,9.825,died
+"Hakkarainen, Mr. Pekka Pietari",3,0,28.0,1,0,15.85,died
+"Oreskovic, Miss. Marija",3,1,20.0,0,0,8.6625,died
+"Gale, Mr. Shadrach",2,0,34.0,1,0,21.0,died
+"Widegren, Mr. Carl/Charles Peter",3,0,51.0,0,0,7.75,died
+"Richards, Master. William Rowe",2,0,3.0,1,1,18.75,lived
+"Birkeland, Mr. Hans Martin Monsen",3,0,21.0,0,0,7.775,died
+"Lefebre, Miss. Ida",3,1,21.0,3,1,25.4667,died
+"Sdycoff, Mr. Todor",3,0,21.0,0,0,7.8958,died
+"Hart, Mr. Henry",3,0,21.0,0,0,6.8583,died
+"Minahan, Miss. Daisy E",1,1,33.0,1,0,90.0,lived
+"Cunningham, Mr. Alfred Fleming",2,0,33.0,0,0,0.0,died
+"Sundman, Mr. Johan Julian",3,0,44.0,0,0,7.925,lived
+"Meek, Mrs. Thomas (Annie Louise Rowley)",3,1,44.0,0,0,8.05,died
+"Drew, Mrs. James Vivian (Lulu Thorne Christian)",2,1,34.0,1,1,32.5,lived
+"Silven, Miss. Lyyli Karoliina",2,1,18.0,0,2,13.0,lived
+"Matthews, Mr. William John",2,0,30.0,0,0,13.0,died
+"Van Impe, Miss. Catharina",3,1,10.0,0,2,24.15,died
+"Gheorgheff, Mr. Stanio",3,0,10.0,0,0,7.8958,died
+"Charters, Mr. David",3,0,21.0,0,0,7.7333,died
+"Zimmerman, Mr. Leo",3,0,29.0,0,0,7.875,died
+"Danbom, Mrs. Ernst Gilbert (Anna Sigrid Maria Brogren)",3,1,28.0,1,1,14.4,died
+"Rosblom, Mr. Viktor Richard",3,0,18.0,1,1,20.2125,died
+"Wiseman, Mr. Phillippe",3,0,18.0,0,0,7.25,died
+"Clarke, Mrs. Charles V (Ada Maria Winfield)",2,1,28.0,1,0,26.0,lived
+"Phillips, Miss. Kate Florence (""Mrs Kate Louise Phillips Marshall"")",2,1,19.0,0,0,26.0,lived
+"Flynn, Mr. James",3,0,19.0,0,0,7.75,died
+"Pickard, Mr. Berk (Berk Trembisky)",3,0,32.0,0,0,8.05,lived
+"Bjornstrom-Steffansson, Mr. Mauritz Hakan",1,0,28.0,0,0,26.55,lived
+"Thorneycroft, Mrs. Percival (Florence Kate White)",3,1,28.0,1,0,16.1,lived
+"Louch, Mrs. Charles Alexander (Alice Adelaide Slow)",2,1,42.0,1,0,26.0,lived
+"Kallio, Mr. Nikolai Erland",3,0,17.0,0,0,7.125,died
+"Silvey, Mr. William Baird",1,0,50.0,1,0,55.9,died
+"Carter, Miss. Lucile Polk",1,1,14.0,1,2,120.0,lived
+"Ford, Miss. Doolina Margaret ""Daisy""",3,1,21.0,2,2,34.375,died
+"Richards, Mrs. Sidney (Emily Hocking)",2,1,24.0,2,3,18.75,lived
+"Fortune, Mr. Mark",1,0,64.0,1,4,263.0,died
+"Kvillner, Mr. Johan Henrik Johannesson",2,0,31.0,0,0,10.5,died
+"Hart, Mrs. Benjamin (Esther Ada Bloomfield)",2,1,45.0,1,1,26.25,lived
+"Hampe, Mr. Leon",3,0,20.0,0,0,9.5,died
+"Petterson, Mr. Johan Emil",3,0,25.0,1,0,7.775,died
+"Reynaldo, Ms. Encarnacion",2,1,28.0,0,0,13.0,lived
+"Johannesen-Bratthammer, Mr. Bernt",3,0,28.0,0,0,8.1125,lived
+"Dodge, Master. Washington",1,0,4.0,0,2,81.8583,lived
+"Mellinger, Miss. Madeleine Violet",2,1,13.0,0,1,19.5,lived
+"Seward, Mr. Frederic Kimber",1,0,34.0,0,0,26.55,lived
+"Baclini, Miss. Marie Catherine",3,1,5.0,2,1,19.2583,lived
+"Peuchen, Major. Arthur Godfrey",1,0,52.0,0,0,30.5,lived
+"West, Mr. Edwy Arthur",2,0,36.0,1,2,27.75,died
+"Hagland, Mr. Ingvald Olai Olsen",3,0,36.0,1,0,19.9667,died
+"Foreman, Mr. Benjamin Laventall",1,0,30.0,0,0,27.75,died
+"Goldenberg, Mr. Samuel L",1,0,49.0,1,0,89.1042,lived
+"Peduzzi, Mr. Joseph",3,0,49.0,0,0,8.05,died
+"Jalsevac, Mr. Ivan",3,0,29.0,0,0,7.8958,lived
+"Millet, Mr. Francis Davis",1,0,65.0,0,0,26.55,died
+"Kenyon, Mrs. Frederick R (Marion)",1,1,65.0,1,0,51.8625,lived
+"Toomey, Miss. Ellen",2,1,50.0,0,0,10.5,lived
+"OConnor, Mr. Maurice",3,0,50.0,0,0,7.75,died
+"Anderson, Mr. Harry",1,0,48.0,0,0,26.55,lived
+"Morley, Mr. William",3,0,34.0,0,0,8.05,died
+"Gee, Mr. Arthur H",1,0,47.0,0,0,38.5,died
+"Milling, Mr. Jacob Christian",2,0,48.0,0,0,13.0,died
+"Maisner, Mr. Simon",3,0,48.0,0,0,8.05,died
+"Goncalves, Mr. Manuel Estanslas",3,0,38.0,0,0,7.05,died
+"Campbell, Mr. William",2,0,38.0,0,0,0.0,died
+"Smart, Mr. John Montgomery",1,0,56.0,0,0,26.55,died
+"Scanlan, Mr. James",3,0,56.0,0,0,7.725,died
+"Baclini, Miss. Helene Barbara",3,1,0.75,2,1,19.2583,lived
+"Keefe, Mr. Arthur",3,0,0.75,0,0,7.25,died
+"Cacic, Mr. Luka",3,0,38.0,0,0,8.6625,died
+"West, Mrs. Edwy Arthur (Ada Mary Worth)",2,1,33.0,1,2,27.75,lived
+"Jerwan, Mrs. Amin S (Marie Marthe Thuillard)",2,1,23.0,0,0,13.7917,lived
+"Strandberg, Miss. Ida Sofia",3,1,22.0,0,0,9.8375,died
+"Clifford, Mr. George Quincy",1,0,22.0,0,0,52.0,died
+"Renouf, Mr. Peter Henry",2,0,34.0,1,0,21.0,died
+"Braund, Mr. Lewis Richard",3,0,29.0,1,0,7.0458,died
+"Karlsson, Mr. Nils August",3,0,22.0,0,0,7.5208,died
+"Hirvonen, Miss. Hildur E",3,1,2.0,0,1,12.2875,lived
+"Goodwin, Master. Harold Victor",3,0,9.0,5,2,46.9,died
+"Frost, Mr. Anthony Wood ""Archie""",2,0,9.0,0,0,0.0,died
+"Rouse, Mr. Richard Henry",3,0,50.0,0,0,8.05,died
+"Turkula, Mrs. (Hedwig)",3,1,63.0,0,0,9.5875,lived
+"Bishop, Mr. Dickinson H",1,0,25.0,1,0,91.0792,lived
+"Lefebre, Miss. Jeannie",3,1,25.0,3,1,25.4667,died
+"Hoyt, Mrs. Frederick Maxfield (Jane Anne Forby)",1,1,35.0,1,0,90.0,lived
+"Kent, Mr. Edward Austin",1,0,58.0,0,0,29.7,died
+"Somerton, Mr. Francis William",3,0,30.0,0,0,8.05,died
+"Coutts, Master. Eden Leslie ""Neville""",3,0,9.0,1,1,15.9,lived
+"Hagland, Mr. Konrad Mathias Reiersen",3,0,9.0,1,0,19.9667,died
+"Windelov, Mr. Einar",3,0,21.0,0,0,7.25,died
+"Molson, Mr. Harry Markland",1,0,55.0,0,0,30.5,died
+"Artagaveytia, Mr. Ramon",1,0,71.0,0,0,49.5042,died
+"Stanley, Mr. Edward Roland",3,0,21.0,0,0,8.05,died
+"Yousseff, Mr. Gerious",3,0,21.0,0,0,14.4583,died
+"Eustis, Miss. Elizabeth Mussey",1,1,54.0,1,0,78.2667,lived
+"Shellard, Mr. Frederick William",3,0,54.0,0,0,15.1,died
+"Allison, Mrs. Hudson J C (Bessie Waldo Daniels)",1,1,25.0,1,2,151.55,died
+"Svensson, Mr. Olof",3,0,24.0,0,0,7.7958,died
+"Calic, Mr. Petar",3,0,17.0,0,0,8.6625,died
+"Canavan, Miss. Mary",3,1,21.0,0,0,7.75,died
+"OSullivan, Miss. Bridget Mary",3,1,21.0,0,0,7.6292,died
+"Laitinen, Miss. Kristina Sofia",3,1,37.0,0,0,9.5875,died
+"Maioni, Miss. Roberta",1,1,16.0,0,0,86.5,lived
+"Penasco y Castellana, Mr. Victor de Satode",1,0,18.0,1,0,108.9,died
+"Quick, Mrs. Frederick Charles (Jane Richards)",2,1,33.0,0,2,26.0,lived
+"Bradley, Mr. George (""George Arthur Brayton"")",1,0,33.0,0,0,26.55,lived
+"Olsen, Mr. Henry Margido",3,0,28.0,0,0,22.525,died
+"Lang, Mr. Fang",3,0,26.0,0,0,56.4958,lived
+"Daly, Mr. Eugene Patrick",3,0,29.0,0,0,7.75,lived
+"Webber, Mr. James",3,0,29.0,0,0,8.05,died
+"McGough, Mr. James Robert",1,0,36.0,0,0,26.2875,lived
+"Rothschild, Mrs. Martin (Elizabeth L. Barrett)",1,1,54.0,1,0,59.4,lived
+"Coleff, Mr. Satio",3,0,24.0,0,0,7.4958,died
+"Walker, Mr. William Anderson",1,0,47.0,0,0,34.0208,died
+"Lemore, Mrs. (Amelia Milley)",2,1,34.0,0,0,10.5,lived
+"Ryan, Mr. Patrick",3,0,34.0,0,0,24.15,died
+"Angle, Mrs. William A (Florence ""Mary"" Agnes Hughes)",2,1,36.0,1,0,26.0,lived
+"Pavlovic, Mr. Stefo",3,0,32.0,0,0,7.8958,died
+"Perreault, Miss. Anne",1,1,30.0,0,0,93.5,lived
+"Vovk, Mr. Janko",3,0,22.0,0,0,7.8958,died
+"Lahoud, Mr. Sarkis",3,0,22.0,0,0,7.225,died
+"Hippach, Mrs. Louis Albert (Ida Sophia Fischer)",1,1,44.0,0,1,57.9792,lived
+"Kassem, Mr. Fared",3,0,44.0,0,0,7.2292,died
+"Farrell, Mr. James",3,0,40.5,0,0,7.75,died
+"Ridsdale, Miss. Lucy",2,1,50.0,0,0,10.5,lived
+"Farthing, Mr. John",1,0,50.0,0,0,221.7792,died
+"Salonen, Mr. Johan Werner",3,0,39.0,0,0,7.925,died
+"Hocking, Mr. Richard George",2,0,23.0,2,1,11.5,died
+"Quick, Miss. Phyllis May",2,1,2.0,1,1,26.0,lived
+"Toufik, Mr. Nakli",3,0,2.0,0,0,7.2292,died
+"Elias, Mr. Joseph Jr",3,0,17.0,1,1,7.2292,died
+"Peter, Mrs. Catherine (Catherine Rizk)",3,1,17.0,0,2,22.3583,lived
+"Cacic, Miss. Marija",3,1,30.0,0,0,8.6625,died
+"Hart, Miss. Eva Miriam",2,1,7.0,0,2,26.25,lived
+"Butt, Major. Archibald Willingham",1,0,45.0,0,0,26.55,died
+"LeRoy, Miss. Bertha",1,1,30.0,0,0,106.425,lived
+"Risien, Mr. Samuel Beard",3,0,30.0,0,0,14.5,died
+"Frolicher, Miss. Hedwig Margaritha",1,1,22.0,0,2,49.5,lived
+"Crosby, Miss. Harriet R",1,1,36.0,0,2,71.0,lived
+"Andersson, Miss. Ingeborg Constanzia",3,1,9.0,4,2,31.275,died
+"Andersson, Miss. Sigrid Elisabeth",3,1,11.0,4,2,31.275,died
+"Beane, Mr. Edward",2,0,32.0,1,0,26.0,lived
+"Douglas, Mr. Walter Donald",1,0,50.0,1,0,106.425,died
+"Nicholson, Mr. Arthur Ernest",1,0,64.0,0,0,26.0,died
+"Beane, Mrs. Edward (Ethel Clarke)",2,1,19.0,1,0,26.0,lived
+"Padro y Manent, Mr. Julian",2,0,19.0,0,0,13.8625,lived
+"Goldsmith, Mr. Frank John",3,0,33.0,1,1,20.525,died
+"Davies, Master. John Morgan Jr",2,0,8.0,1,1,36.75,lived
+"Thayer, Mr. John Borland Jr",1,0,17.0,0,2,110.8833,lived
+"Sharp, Mr. Percival James R",2,0,27.0,0,0,26.0,died
+"OBrien, Mr. Timothy",3,0,27.0,0,0,7.8292,died
+"Leeni, Mr. Fahim (""Philip Zenni"")",3,0,22.0,0,0,7.225,lived
+"Ohman, Miss. Velin",3,1,22.0,0,0,7.775,lived
+"Wright, Mr. George",1,0,62.0,0,0,26.55,died
+"Duff Gordon, Lady. (Lucille Christiana Sutherland) (""Mrs Morgan"")",1,1,48.0,1,0,39.6,lived
+"Robbins, Mr. Victor",1,0,48.0,0,0,227.525,died
+"Taussig, Mrs. Emil (Tillie Mandelbaum)",1,1,39.0,1,1,79.65,lived
+"de Messemaeker, Mrs. Guillaume Joseph (Emma)",3,1,36.0,1,0,17.4,lived
+"Morrow, Mr. Thomas Rowan",3,0,36.0,0,0,7.75,died
+"Sivic, Mr. Husein",3,0,40.0,0,0,7.8958,died
+"Norman, Mr. Robert Douglas",2,0,28.0,0,0,13.5,died
+"Simmons, Mr. John",3,0,28.0,0,0,8.05,died
+"Meanwell, Miss. (Marion Ogden)",3,1,28.0,0,0,8.05,died
+"Davies, Mr. Alfred J",3,0,24.0,2,0,24.15,died
+"Stoytcheff, Mr. Ilia",3,0,19.0,0,0,7.8958,died
+"Palsson, Mrs. Nils (Alma Cornelia Berglund)",3,1,29.0,0,4,21.075,died
+"Doharr, Mr. Tannous",3,0,29.0,0,0,7.2292,died
+"Jonsson, Mr. Carl",3,0,32.0,0,0,7.8542,lived
+"Harris, Mr. George",2,0,62.0,0,0,10.5,lived
+"Appleton, Mrs. Edward Dale (Charlotte Lamson)",1,1,53.0,2,0,51.4792,lived
+"Flynn, Mr. John Irwin (""Irving"")",1,0,36.0,0,0,26.3875,lived
+"Kelly, Miss. Mary",3,1,36.0,0,0,7.75,lived
+"Rush, Mr. Alfred George John",3,0,16.0,0,0,8.05,died
+"Patchett, Mr. George",3,0,19.0,0,0,14.5,died
+"Garside, Miss. Ethel",2,1,34.0,0,0,13.0,lived
+"Silvey, Mrs. William Baird (Alice Munger)",1,1,39.0,1,0,55.9,lived
+"Caram, Mrs. Joseph (Maria Elias)",3,1,39.0,1,0,14.4583,died
+"Jussila, Mr. Eiriik",3,0,32.0,0,0,7.925,lived
+"Christy, Miss. Julie Rachel",2,1,25.0,1,1,30.0,lived
+"Thayer, Mrs. John Borland (Marian Longstreth Morris)",1,1,39.0,1,1,110.8833,lived
+"Downton, Mr. William James",2,0,54.0,0,0,26.0,died
+"Ross, Mr. John Hugo",1,0,36.0,0,0,40.125,died
+"Paulner, Mr. Uscher",3,0,36.0,0,0,8.7125,died
+"Taussig, Miss. Ruth",1,1,18.0,0,2,79.65,lived
+"Jarvis, Mr. John Denzil",2,0,47.0,0,0,15.0,died
+"Frolicher-Stehli, Mr. Maxmillian",1,0,60.0,1,1,79.2,lived
+"Gilinski, Mr. Eliezer",3,0,22.0,0,0,8.05,died
+"Murdlin, Mr. Joseph",3,0,22.0,0,0,8.05,died
+"Rintamaki, Mr. Matti",3,0,35.0,0,0,7.125,died
+"Stephenson, Mrs. Walter Bertram (Martha Eustis)",1,1,52.0,1,0,78.2667,lived
+"Elsbury, Mr. William James",3,0,47.0,0,0,7.25,died
+"Bourke, Miss. Mary",3,1,47.0,0,2,7.75,died
+"Chapman, Mr. John Henry",2,0,37.0,1,0,26.0,died
+"Van Impe, Mr. Jean Baptiste",3,0,36.0,1,1,24.15,died
+"Leitch, Miss. Jessie Wills",2,1,36.0,0,0,33.0,lived
+"Johnson, Mr. Alfred",3,0,49.0,0,0,0.0,died
+"Boulos, Mr. Hanna",3,0,49.0,0,0,7.225,died
+"Duff Gordon, Sir. Cosmo Edmund (""Mr Morgan"")",1,0,49.0,1,0,56.9292,lived
+"Jacobsohn, Mrs. Sidney Samuel (Amy Frances Christy)",2,1,24.0,2,1,27.0,lived
+"Slabenoff, Mr. Petco",3,0,24.0,0,0,7.8958,died
+"Harrington, Mr. Charles H",1,0,24.0,0,0,42.4,died
+"Torber, Mr. Ernst William",3,0,44.0,0,0,8.05,died
+"Homer, Mr. Harry (""Mr E Haven"")",1,0,35.0,0,0,26.55,lived
+"Lindell, Mr. Edvard Bengtsson",3,0,36.0,1,0,15.55,died
+"Karaic, Mr. Milan",3,0,30.0,0,0,7.8958,died
+"Daniel, Mr. Robert Williams",1,0,27.0,0,0,30.5,lived
+"Laroche, Mrs. Joseph (Juliette Marie Louise Lafargue)",2,1,22.0,1,2,41.5792,lived
+"Shutes, Miss. Elizabeth W",1,1,40.0,0,0,153.4625,lived
+"Andersson, Mrs. Anders Johan (Alfrida Konstantia Brogren)",3,1,39.0,1,5,31.275,died
+"Jardin, Mr. Jose Neto",3,0,39.0,0,0,7.05,died
+"Murphy, Miss. Margaret Jane",3,1,39.0,1,0,15.5,lived
+"Horgan, Mr. John",3,0,39.0,0,0,7.75,died
+"Brocklebank, Mr. William Alfred",3,0,35.0,0,0,8.05,died
+"Herman, Miss. Alice",2,1,24.0,1,2,65.0,lived
+"Danbom, Mr. Ernst Gilbert",3,0,34.0,1,1,14.4,died
+"Lobb, Mrs. William Arthur (Cordelia K Stanlick)",3,1,26.0,1,0,16.1,died
+"Becker, Miss. Marion Louise",2,1,4.0,2,1,39.0,lived
+"Gavey, Mr. Lawrence",2,0,26.0,0,0,10.5,died
+"Yasbeck, Mr. Antoni",3,0,27.0,1,0,14.4542,died
+"Kimball, Mr. Edwin Nelson Jr",1,0,42.0,1,0,52.5542,lived
+"Nakid, Mr. Sahid",3,0,20.0,1,1,15.7417,lived
+"Hansen, Mr. Henry Damsgaard",3,0,21.0,0,0,7.8542,died
+"Bowen, Mr. David John ""Dai""",3,0,21.0,0,0,16.1,died
+"Sutton, Mr. Frederick",1,0,61.0,0,0,32.3208,died
+"Kirkland, Rev. Charles Leonard",2,0,57.0,0,0,12.35,died
+"Longley, Miss. Gretchen Fiske",1,1,21.0,0,0,77.9583,lived
+"Bostandyeff, Mr. Guentcho",3,0,26.0,0,0,7.8958,died
+"OConnell, Mr. Patrick D",3,0,26.0,0,0,7.7333,died
+"Barkworth, Mr. Algernon Henry Wilson",1,0,80.0,0,0,30.0,lived
+"Lundahl, Mr. Johan Svensson",3,0,51.0,0,0,7.0542,died
+"Stahelin-Maeglin, Dr. Max",1,0,32.0,0,0,30.5,lived
+"Parr, Mr. William Henry Marsh",1,0,32.0,0,0,0.0,died
+"Skoog, Miss. Mabel",3,1,9.0,3,2,27.9,died
+"Davis, Miss. Mary",2,1,28.0,0,0,13.0,lived
+"Leinonen, Mr. Antti Gustaf",3,0,32.0,0,0,7.925,died
+"Collyer, Mr. Harvey",2,0,31.0,1,1,26.25,died
+"Panula, Mrs. Juha (Maria Emilia Ojala)",3,1,41.0,0,5,39.6875,died
+"Thorneycroft, Mr. Percival",3,0,41.0,1,0,16.1,died
+"Jensen, Mr. Hans Peder",3,0,20.0,0,0,7.8542,died
+"Sagesser, Mlle. Emma",1,1,24.0,0,0,69.3,lived
+"Skoog, Miss. Margit Elizabeth",3,1,2.0,3,2,27.9,died
+"Foo, Mr. Choong",3,0,2.0,0,0,56.4958,lived
+"Baclini, Miss. Eugenie",3,1,0.75,2,1,19.2583,lived
+"Harper, Mr. Henry Sleeper",1,0,48.0,1,0,76.7292,lived
+"Cor, Mr. Liudevit",3,0,19.0,0,0,7.8958,died
+"Simonius-Blumer, Col. Oberst Alfons",1,0,56.0,0,0,35.5,lived
+"Willey, Mr. Edward",3,0,56.0,0,0,7.55,died
+"Stanley, Miss. Amy Zillah Elsie",3,1,23.0,0,0,7.55,lived
+"Mitkoff, Mr. Mito",3,0,23.0,0,0,7.8958,died
+"Doling, Miss. Elsie",2,1,18.0,0,1,23.0,lived
+"Kalvik, Mr. Johannes Halvorsen",3,0,21.0,0,0,8.4333,died
+"OLeary, Miss. Hanora ""Norah""",3,1,21.0,0,0,7.8292,lived
+"Hegarty, Miss. Hanora ""Nora""",3,1,18.0,0,0,6.75,died
+"Hickman, Mr. Leonard Mark",2,0,24.0,2,0,73.5,died
+"Radeff, Mr. Alexander",3,0,24.0,0,0,7.8958,died
+"Bourke, Mrs. John (Catherine)",3,1,32.0,1,1,15.5,died
+"Eitemiller, Mr. George Floyd",2,0,23.0,0,0,13.0,died
+"Newell, Mr. Arthur Webster",1,0,58.0,0,2,113.275,died
+"Frauenthal, Dr. Henry William",1,0,50.0,2,0,133.65,lived
+"Badt, Mr. Mohamed",3,0,40.0,0,0,7.225,died
+"Colley, Mr. Edward Pomeroy",1,0,47.0,0,0,25.5875,died
+"Coleff, Mr. Peju",3,0,36.0,0,0,7.4958,died
+"Lindqvist, Mr. Eino William",3,0,20.0,1,0,7.925,lived
+"Hickman, Mr. Lewis",2,0,32.0,2,0,73.5,died
+"Butler, Mr. Reginald Fenton",2,0,25.0,0,0,13.0,died
+"Rommetvedt, Mr. Knud Paust",3,0,25.0,0,0,7.775,died
+"Cook, Mr. Jacob",3,0,43.0,0,0,8.05,died
+"Taylor, Mrs. Elmer Zebley (Juliet Cummins Wright)",1,1,43.0,1,0,52.0,lived
+"Brown, Mrs. Thomas William Solomon (Elizabeth Catherine Ford)",2,1,40.0,1,1,39.0,lived
+"Davidson, Mr. Thornton",1,0,31.0,1,0,52.0,died
+"Mitchell, Mr. Henry Michael",2,0,70.0,0,0,10.5,died
+"Wilhelms, Mr. Charles",2,0,31.0,0,0,13.0,lived
+"Watson, Mr. Ennis Hastings",2,0,31.0,0,0,0.0,died
+"Edvardsson, Mr. Gustaf Hjalmar",3,0,18.0,0,0,7.775,died
+"Sawyer, Mr. Frederick Charles",3,0,24.5,0,0,8.05,died
+"Turja, Miss. Anna Sofia",3,1,18.0,0,0,9.8417,lived
+"Goodwin, Mrs. Frederick (Augusta Tyler)",3,1,43.0,1,6,46.9,died
+"Cardeza, Mr. Thomas Drake Martinez",1,0,36.0,0,1,512.3292,lived
+"Peters, Miss. Katie",3,1,36.0,0,0,8.1375,died
+"Hassab, Mr. Hammad",1,0,27.0,0,0,76.7292,lived
+"Olsvigen, Mr. Thor Anderson",3,0,20.0,0,0,9.225,died
+"Goodwin, Mr. Charles Edward",3,0,14.0,5,2,46.9,died
+"Brown, Mr. Thomas William Solomon",2,0,60.0,1,1,39.0,died
+"Laroche, Mr. Joseph Philippe Lemercier",2,0,25.0,1,2,41.5792,died
+"Panula, Mr. Jaako Arnold",3,0,14.0,4,1,39.6875,died
+"Dakic, Mr. Branko",3,0,19.0,0,0,10.1708,died
+"Fischer, Mr. Eberhard Thelander",3,0,18.0,0,0,7.7958,died
+"Madill, Miss. Georgette Alexandra",1,1,15.0,0,1,211.3375,lived
+"Dick, Mr. Albert Adrian",1,0,31.0,1,0,57.0,lived
+"Karun, Miss. Manca",3,1,4.0,0,1,13.4167,lived
+"Lam, Mr. Ali",3,0,4.0,0,0,56.4958,lived
+"Saad, Mr. Khalil",3,0,25.0,0,0,7.225,died
+"Weir, Col. John",1,0,60.0,0,0,26.55,died
+"Chapman, Mr. Charles Henry",2,0,52.0,0,0,13.5,died
+"Kelly, Mr. James",3,0,44.0,0,0,8.05,died
+"Mullens, Miss. Katherine ""Katie""",3,1,44.0,0,0,7.7333,lived
+"Thayer, Mr. John Borland",1,0,49.0,1,1,110.8833,died
+"Humblen, Mr. Adolf Mathias Nicolai Olsen",3,0,42.0,0,0,7.65,died
+"Astor, Mrs. John Jacob (Madeleine Talmadge Force)",1,1,18.0,1,0,227.525,lived
+"Silverthorne, Mr. Spencer Victor",1,0,35.0,0,0,26.2875,lived
+"Barbara, Miss. Saiide",3,1,18.0,0,1,14.4542,died
+"Gallagher, Mr. Martin",3,0,25.0,0,0,7.7417,died
+"Hansen, Mr. Henrik Juul",3,0,26.0,1,0,7.8542,died
+"Morley, Mr. Henry Samuel (""Mr Henry Marshall"")",2,0,39.0,0,0,26.0,died
+"Kelly, Mrs. Florence ""Fannie""",2,1,45.0,0,0,13.5,lived
+"Calderhead, Mr. Edward Pennington",1,0,42.0,0,0,26.2875,lived
+"Cleaver, Miss. Alice",1,1,22.0,0,0,151.55,lived
+"Moubarek, Master. Halim Gonios (""William George"")",3,0,22.0,1,1,15.2458,lived
+"Mayne, Mlle. Berthe Antonine (""Mrs de Villiers"")",1,1,24.0,0,0,49.5042,lived
+"Klaber, Mr. Herman",1,0,24.0,0,0,26.55,died
+"Taylor, Mr. Elmer Zebley",1,0,48.0,1,0,52.0,lived
+"Larsson, Mr. August Viktor",3,0,29.0,0,0,9.4833,died
+"Greenberg, Mr. Samuel",2,0,52.0,0,0,13.0,died
+"Soholt, Mr. Peter Andreas Lauritz Andersen",3,0,19.0,0,0,7.65,died
+"Endres, Miss. Caroline Louise",1,1,38.0,0,0,227.525,lived
+"Troutt, Miss. Edwina Celia ""Winnie""",2,1,27.0,0,0,10.5,lived
+"McEvoy, Mr. Michael",3,0,27.0,0,0,15.5,died
+"Johnson, Mr. Malkolm Joackim",3,0,33.0,0,0,7.775,died
+"Harper, Miss. Annie Jessie ""Nina""",2,1,6.0,0,1,33.0,lived
+"Jensen, Mr. Svend Lauritz",3,0,17.0,1,0,7.0542,died
+"Gillespie, Mr. William Henry",2,0,34.0,0,0,13.0,died
+"Hodges, Mr. Henry Price",2,0,50.0,0,0,13.0,died
+"Chambers, Mr. Norman Campbell",1,0,27.0,1,0,53.1,lived
+"Oreskovic, Mr. Luka",3,0,20.0,0,0,8.6625,died
+"Renouf, Mrs. Peter Henry (Lillian Jefferys)",2,1,30.0,3,0,21.0,lived
+"Mannion, Miss. Margareth",3,1,30.0,0,0,7.7375,lived
+"Bryhl, Mr. Kurt Arnold Gottfrid",2,0,25.0,1,0,26.0,died
+"Ilmakangas, Miss. Pieta Sofia",3,1,25.0,1,0,7.925,died
+"Allen, Miss. Elisabeth Walton",1,1,29.0,0,0,211.3375,lived
+"Hassan, Mr. Houssein G N",3,0,11.0,0,0,18.7875,died
+"Knight, Mr. Robert J",2,0,11.0,0,0,0.0,died
+"Berriman, Mr. William John",2,0,23.0,0,0,13.0,died
+"Troupiansky, Mr. Moses Aaron",2,0,23.0,0,0,13.0,died
+"Williams, Mr. Leslie",3,0,28.5,0,0,16.1,died
+"Ford, Mrs. Edward (Margaret Ann Watson)",3,1,48.0,1,3,34.375,died
+"Lesurer, Mr. Gustave J",1,0,35.0,0,0,512.3292,lived
+"Ivanoff, Mr. Kanio",3,0,35.0,0,0,7.8958,died
+"Nankoff, Mr. Minko",3,0,35.0,0,0,7.8958,died
+"Hawksford, Mr. Walter James",1,0,35.0,0,0,30.0,lived
+"Cavendish, Mr. Tyrell William",1,0,36.0,1,0,78.85,died
+"Ryerson, Miss. Susan Parker ""Suzette""",1,1,21.0,2,2,262.375,lived
+"McNamee, Mr. Neal",3,0,24.0,1,0,16.1,died
+"Stranden, Mr. Juho",3,0,31.0,0,0,7.925,lived
+"Crosby, Capt. Edward Gifford",1,0,70.0,1,1,71.0,died
+"Abbott, Mr. Rossmore Edward",3,0,16.0,1,1,20.25,died
+"Sinkkonen, Miss. Anna",2,1,30.0,0,0,13.0,lived
+"Marvin, Mr. Daniel Warner",1,0,19.0,1,0,53.1,died
+"Connaghton, Mr. Michael",3,0,31.0,0,0,7.75,died
+"Wells, Miss. Joan",2,1,4.0,1,1,23.0,lived
+"Moor, Master. Meier",3,0,6.0,0,1,12.475,lived
+"Vande Velde, Mr. Johannes Joseph",3,0,33.0,0,0,9.5,died
+"Jonkoff, Mr. Lalio",3,0,23.0,0,0,7.8958,died
+"Herman, Mrs. Samuel (Jane Laver)",2,1,48.0,1,2,65.0,lived
+"Hamalainen, Master. Viljo",2,0,0.67,1,1,14.5,lived
+"Carlsson, Mr. August Sigfrid",3,0,28.0,0,0,7.7958,died
+"Bailey, Mr. Percy Andrew",2,0,18.0,0,0,11.5,died
+"Theobald, Mr. Thomas Leonard",3,0,34.0,0,0,8.05,died
+"Rothes, the Countess. of (Lucy Noel Martha Dyer-Edwards)",1,1,33.0,0,0,86.5,lived
+"Garfirth, Mr. John",3,0,33.0,0,0,14.5,died
+"Nirva, Mr. Iisakki Antino Aijo",3,0,41.0,0,0,7.125,died
+"Barah, Mr. Hanna Assi",3,0,20.0,0,0,7.2292,lived
+"Carter, Mrs. William Ernest (Lucile Polk)",1,1,36.0,1,2,120.0,lived
+"Eklund, Mr. Hans Linus",3,0,16.0,0,0,7.775,died
+"Hogeboom, Mrs. John C (Anna Andrews)",1,1,51.0,1,0,77.9583,lived
+"Brewe, Dr. Arthur Jackson",1,0,51.0,0,0,39.6,died
+"Mangan, Miss. Mary",3,1,30.5,0,0,7.75,died
+"Moran, Mr. Daniel J",3,0,30.5,1,0,24.15,died
+"Gronnestad, Mr. Daniel Danielsen",3,0,32.0,0,0,8.3625,died
+"Lievens, Mr. Rene Aime",3,0,24.0,0,0,9.5,died
+"Jensen, Mr. Niels Peder",3,0,48.0,0,0,7.8542,died
+"Mack, Mrs. (Mary)",2,1,57.0,0,0,10.5,died
+"Elias, Mr. Dibo",3,0,57.0,0,0,7.225,died
+"Hocking, Mrs. Elizabeth (Eliza Needs)",2,1,54.0,1,3,23.0,lived
+"Myhrman, Mr. Pehr Fabian Oliver Malkolm",3,0,18.0,0,0,7.75,died
+"Tobin, Mr. Roger",3,0,18.0,0,0,7.75,died
+"Emanuel, Miss. Virginia Ethel",3,1,5.0,0,0,12.475,lived
+"Kilgannon, Mr. Thomas J",3,0,5.0,0,0,7.7375,died
+"Robert, Mrs. Edward Scott (Elisabeth Walton McMillan)",1,1,43.0,0,1,211.3375,lived
+"Ayoub, Miss. Banoura",3,1,13.0,0,0,7.2292,lived
+"Dick, Mrs. Albert Adrian (Vera Gillespie)",1,1,17.0,1,0,57.0,lived
+"Long, Mr. Milton Clyde",1,0,29.0,0,0,30.0,died
+"Johnston, Mr. Andrew G",3,0,29.0,1,2,23.45,died
+"Ali, Mr. William",3,0,25.0,0,0,7.05,died
+"Harmer, Mr. Abraham (David Lishin)",3,0,25.0,0,0,7.25,died
+"Sjoblom, Miss. Anna Sofia",3,1,18.0,0,0,7.4958,lived
+"Rice, Master. George Hugh",3,0,8.0,4,1,29.125,died
+"Dean, Master. Bertram Vere",3,0,1.0,1,2,20.575,lived
+"Guggenheim, Mr. Benjamin",1,0,46.0,0,0,79.2,died
+"Keane, Mr. Andrew ""Andy""",3,0,46.0,0,0,7.75,died
+"Gaskell, Mr. Alfred",2,0,16.0,0,0,26.0,died
+"Sage, Miss. Stella Anna",3,1,16.0,8,2,69.55,died
+"Hoyt, Mr. William Fisher",1,0,16.0,0,0,30.6958,died
+"Dantcheff, Mr. Ristiu",3,0,25.0,0,0,7.8958,died
+"Otter, Mr. Richard",2,0,39.0,0,0,13.0,died
+"Leader, Dr. Alice (Farnham)",1,1,49.0,0,0,25.9292,lived
+"Osman, Mrs. Mara",3,1,31.0,0,0,8.6833,lived
+"Ibrahim Shawah, Mr. Yousseff",3,0,30.0,0,0,7.2292,died
+"Van Impe, Mrs. Jean Baptiste (Rosalie Paula Govaert)",3,1,30.0,1,1,24.15,died
+"Ponesell, Mr. Martin",2,0,34.0,0,0,13.0,died
+"Collyer, Mrs. Harvey (Charlotte Annie Tate)",2,1,31.0,1,1,26.25,lived
+"Carter, Master. William Thornton II",1,0,11.0,1,2,120.0,lived
+"Thomas, Master. Assad Alexander",3,0,0.42,0,1,8.5167,lived
+"Hedman, Mr. Oskar Arvid",3,0,27.0,0,0,6.975,lived
+"Johansson, Mr. Karl Johan",3,0,31.0,0,0,7.775,died
+"Andrews, Mr. Thomas Jr",1,0,39.0,0,0,0.0,died
+"Pettersson, Miss. Ellen Natalia",3,1,18.0,0,0,7.775,died
+"Meyer, Mr. August",2,0,39.0,0,0,13.0,died
+"Chambers, Mrs. Norman Campbell (Bertha Griggs)",1,1,33.0,1,0,53.1,lived
+"Alexander, Mr. William",3,0,26.0,0,0,7.8875,died
+"Lester, Mr. James",3,0,39.0,0,0,24.15,died
+"Slemen, Mr. Richard James",2,0,35.0,0,0,10.5,died
+"Andersson, Miss. Ebba Iris Alfrida",3,1,6.0,4,2,31.275,died
+"Tomlin, Mr. Ernest Portage",3,0,30.5,0,0,8.05,died
+"Fry, Mr. Richard",1,0,30.5,0,0,0.0,died
+"Heininen, Miss. Wendla Maria",3,1,23.0,0,0,7.925,died
+"Mallet, Mr. Albert",2,0,31.0,1,1,37.0042,died
+"Holm, Mr. John Fredrik Alexander",3,0,43.0,0,0,6.45,died
+"Skoog, Master. Karl Thorsten",3,0,10.0,3,2,27.9,died
+"Hays, Mrs. Charles Melville (Clara Jennings Gregg)",1,1,52.0,1,1,93.5,lived
+"Lulic, Mr. Nikola",3,0,27.0,0,0,8.6625,lived
+"Reuchlin, Jonkheer. John George",1,0,38.0,0,0,0.0,died
+"Moor, Mrs. (Beila)",3,1,27.0,0,1,12.475,lived
+"Panula, Master. Urho Abraham",3,0,2.0,4,1,39.6875,died
+"Flynn, Mr. John",3,0,2.0,0,0,6.95,died
+"Lam, Mr. Len",3,0,2.0,0,0,56.4958,died
+"Mallet, Master. Andre",2,0,1.0,0,2,37.0042,lived
+"McCormack, Mr. Thomas Joseph",3,0,1.0,0,0,7.75,lived
+"Stone, Mrs. George Nelson (Martha Evelyn)",1,1,62.0,0,0,80.0,lived
+"Yasbeck, Mrs. Antoni (Selini Alexander)",3,1,15.0,1,0,14.4542,lived
+"Richards, Master. George Sibley",2,0,0.83,1,1,18.75,lived
+"Saad, Mr. Amin",3,0,0.83,0,0,7.2292,died
+"Augustsson, Mr. Albert",3,0,23.0,0,0,7.8542,died
+"Allum, Mr. Owen George",3,0,18.0,0,0,8.3,died
+"Compton, Miss. Sara Rebecca",1,1,39.0,1,1,83.1583,lived
+"Pasic, Mr. Jakob",3,0,21.0,0,0,8.6625,died
+"Sirota, Mr. Maurice",3,0,21.0,0,0,8.05,died
+"Chip, Mr. Chang",3,0,32.0,0,0,56.4958,lived
+"Marechal, Mr. Pierre",1,0,32.0,0,0,29.7,lived
+"Alhomaki, Mr. Ilmari Rudolf",3,0,20.0,0,0,7.925,died
+"Mudd, Mr. Thomas Charles",2,0,16.0,0,0,10.5,died
+"Serepeca, Miss. Augusta",1,1,30.0,0,0,31.0,lived
+"Lemberopolous, Mr. Peter L",3,0,34.5,0,0,6.4375,died
+"Culumovic, Mr. Jeso",3,0,17.0,0,0,8.6625,died
+"Abbing, Mr. Anthony",3,0,42.0,0,0,7.55,died
+"Sage, Mr. Douglas Bullen",3,0,42.0,8,2,69.55,died
+"Markoff, Mr. Marin",3,0,35.0,0,0,7.8958,died
+"Harper, Rev. John",2,0,28.0,0,1,33.0,died
+"Goldenberg, Mrs. Samuel L (Edwiga Grabowska)",1,1,28.0,1,0,89.1042,lived
+"Andersson, Master. Sigvard Harald Elias",3,0,4.0,4,2,31.275,died
+"Svensson, Mr. Johan",3,0,74.0,0,0,7.775,died
+"Boulos, Miss. Nourelain",3,1,9.0,1,1,15.2458,died
+"Lines, Miss. Mary Conover",1,1,16.0,0,1,39.4,lived
+"Carter, Mrs. Ernest Courtenay (Lilian Hughes)",2,1,44.0,1,0,26.0,died
+"Aks, Mrs. Sam (Leah Rosen)",3,1,18.0,0,1,9.35,lived
+"Wick, Mrs. George Dennick (Mary Hitchcock)",1,1,45.0,1,1,164.8667,lived
+"Daly, Mr. Peter Denis ",1,0,51.0,0,0,26.55,lived
+"Baclini, Mrs. Solomon (Latifa Qurban)",3,1,24.0,0,3,19.2583,lived
+"Razi, Mr. Raihed",3,0,24.0,0,0,7.2292,died
+"Hansen, Mr. Claus Peter",3,0,41.0,2,0,14.1083,died
+"Giles, Mr. Frederick Edward",2,0,21.0,1,0,11.5,died
+"Swift, Mrs. Frederick Joel (Margaret Welles Barron)",1,1,48.0,0,0,25.9292,lived
+"Sage, Miss. Dorothy Edith ""Dolly""",3,1,48.0,8,2,69.55,died
+"Gill, Mr. John William",2,0,24.0,0,0,13.0,died
+"Bystrom, Mrs. (Karolina)",2,1,42.0,0,0,13.0,lived
+"Duran y More, Miss. Asuncion",2,1,27.0,1,0,13.8583,lived
+"Roebling, Mr. Washington Augustus II",1,0,31.0,0,0,50.4958,died
+"van Melkebeke, Mr. Philemon",3,0,31.0,0,0,9.5,died
+"Johnson, Master. Harold Theodor",3,0,4.0,1,1,11.1333,lived
+"Balkic, Mr. Cerin",3,0,26.0,0,0,7.8958,died
+"Beckwith, Mrs. Richard Leonard (Sallie Monypeny)",1,1,47.0,1,1,52.5542,lived
+"Carlsson, Mr. Frans Olof",1,0,33.0,0,0,5.0,died
+"Vander Cruyssen, Mr. Victor",3,0,47.0,0,0,9.0,died
+"Abelson, Mrs. Samuel (Hannah Wizosky)",2,1,28.0,1,0,24.0,lived
+"Najib, Miss. Adele Kiamie ""Jane""",3,1,15.0,0,0,7.225,lived
+"Gustafsson, Mr. Alfred Ossian",3,0,20.0,0,0,9.8458,died
+"Petroff, Mr. Nedelio",3,0,19.0,0,0,7.8958,died
+"Laleff, Mr. Kristo",3,0,19.0,0,0,7.8958,died
+"Potter, Mrs. Thomas Jr (Lily Alexenia Wilson)",1,1,56.0,0,1,83.1583,lived
+"Shelley, Mrs. William (Imanita Parrish Hall)",2,1,25.0,0,1,26.0,lived
+"Markun, Mr. Johann",3,0,33.0,0,0,7.8958,died
+"Dahlberg, Miss. Gerda Ulrika",3,1,22.0,0,0,10.5167,died
+"Banfield, Mr. Frederick James",2,0,28.0,0,0,10.5,died
+"Sutehall, Mr. Henry Jr",3,0,25.0,0,0,7.05,died
+"Rice, Mrs. William (Margaret Norton)",3,1,39.0,0,5,29.125,died
+"Montvila, Rev. Juozas",2,0,27.0,0,0,13.0,died
+"Graham, Miss. Margaret Edith",1,1,19.0,0,0,30.0,lived
+"Johnston, Miss. Catherine Helen ""Carrie""",3,1,19.0,1,2,23.45,died
+"Behr, Mr. Karl Howell",1,0,26.0,0,0,30.0,lived
+"Dooley, Mr. Patrick",3,0,32.0,0,0,7.75,died

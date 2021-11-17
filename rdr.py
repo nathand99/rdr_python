@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn import preprocessing, tree
 from sklearn.datasets import load_iris
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import export_graphviz
 from sklearn.ensemble import RandomForestClassifier
@@ -50,7 +50,7 @@ def enter_new_rule():
             attribute = input("Enter an attribute: ")
             operator = input("Enter an operator: ")
             value = input("Enter an value: ")
-            more = input('Add another condition? (Y/n): ')
+            more = input('Add another condition? (y/n): ')
             if more.lower() == 'y':
                 op = input('and/or: ').lower()
                 rule += f"`{attribute}` {operator} {value} {op} "
@@ -316,7 +316,8 @@ print("Done")
 # - numeric data only. target values allowed to be text - they will be transformed
 # care for missing or weird values
 # an empty conclusion column will be added
-filename = 'nbamodified2'#.csv
+filename = 'titanicmodified'#.csv
+#filename = 'watermodified'
 print(f"importing data from {filename}.csv into dataframe...", end='')
 df = pd.read_csv(filename+'.csv')
 df = df.dropna()
@@ -428,8 +429,9 @@ while (True):
     print("Press (10) to show feature importances from xgboost")
     print("Press (11) for evaluation")
     print("Press (12) to run rules on all cases and DONT STOP with a count at the end")
-    print("Press (13) to save/load rules_list to/from a file")
-    print("Press (14) to change black box model")
+    print("Press (13) to run 10-fold cross validation for all black boxes")
+    print("Press (14) to save/load rules_list to/from a file")
+    print("Press (15) to change black box model")
     #print("Press (q) to quit")
     i = int(input())
     # print cases dataframe
@@ -788,10 +790,24 @@ while (True):
                 incorrect += 1
         print(f"\nAfter adding {rules_count} rules: ")
         print(f"Correct classifications: {correct}")
-        print(f"Incorrect classifications: {incorrect}\n")
+        print(f"Incorrect classifications: {incorrect}")
+        total = correct + incorrect
+        acc = correct / total
+        print("Accuracy: {:.2f}\n".format(acc))
 
-    # save or read in rules_list
+    # run 10 fold cross validation on dataset using all bb's
     elif i == 13:
+        s1 = cross_val_score(dt, X, y, cv=10)
+        s2 = cross_val_score(rf, X, y, cv=10)
+        b = xgb.XGBClassifier(use_label_encoder=False, verbosity=0)
+        s3 = cross_val_score(b, X, y, cv=10)
+        print("Accuracy using 10-fold cross validation:")
+        print("Decision tree: {:.3f}".format(s1.mean()))
+        print("Random Forest: {:.3f}".format(s2.mean()))
+        print("XGBoost: {:.3f}".format(s3.mean()))
+        print()
+    # save or read in rules_list
+    elif i == 14:
         saveorload = input("Would you like to save or load rules? (s/l): \n").lower()
         if saveorload == "s" or saveorload == "save":
             print("WARNING: choose a name for a file that does not exist")
@@ -839,7 +855,7 @@ while (True):
                     rules_list[i] = Node(num=int(x[0]), data=x[1], con=x[2], nextTrue=nt, nextFalse=nf, case=x[5], true_cases=tc)
                     i += 1
     # change black box model
-    elif i == 14:
+    elif i == 15:
         bb = choose_black_box()
     else: 
         exit()
