@@ -316,7 +316,9 @@ print("Done")
 # - numeric data only. target values allowed to be text - they will be transformed
 # care for missing or weird values
 # an empty conclusion column will be added
-filename = 'titanicmodified'#.csv
+filename = input("Please enter the name of the CSV file to be imported (eg animals.csv): ")
+filename = filename.split(".")[0]
+#filename 'titanicmodified'#.csv
 #filename = 'watermodified'
 print(f"importing data from {filename}.csv into dataframe...", end='')
 df = pd.read_csv(filename+'.csv')
@@ -638,6 +640,7 @@ while (True):
         ax.set_ylabel("Mean accuracy decrease")
         fig.tight_layout()
         plt.savefig('randomforestfeatureimportancesMAD.png')
+        plt.show()
         print("Done\n")
     # get feature importance from xgboost
     elif i == 10:
