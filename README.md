@@ -1,14 +1,26 @@
 # rdr_python
 
 ### Background
----
+This repository contains the code which was developed for my thesis topic: Ripple Down Rules for Explainable AI. The system created for this topic is located in the file ```rdr.py```. The system involves using a human-in-the-loop to create a ruleset using RDR to create an explaianble model which explains the predictions of a black box classifier. To achieve this, the human user will create rules along side of a black box classfiier to create a ruleset which explains the black box classifier.
+
+The following image is a system architecture diagram:
+
+![image](https://user-images.githubusercontent.com/47731415/144806638-1ff7ef0e-e73d-418e-815c-5962caa51539.png)
+For each case, the case is be run through the “black box” classifier which give its classification. Next, the case is shown to the expert human-in-the-loop. The classification of the case by the “black box” model is seen by the expert and the case is run through the RDR explainability model. If the RDR system’s prediction for the case matches the “black box” prediction, no action is taken as the RDR has made a correct classification. However, if the RDR system’s classification does not match, the expert user creates a new rule to correctly classify it by selecting relevant attributes. Importantly, selection of these attributes is under the control of the expert user. That is, they will only define a rule for a classification in terms of combinations of attributes that make sense to them. It follows that a knowledge-base constructed in this way will be an explainable model of the predictions of the black-box model on the test set of cases
+
+The option in the program that follows this algorithm is option 4. A more in depth description is in the walkthrough below.
+
+For more information please read the final report located in this repository.
+
 ### Setup
 ---
-### Description
----
+### Usage
+Run the program by entering the command: 
+```python3 rdr.py```
+
 ### Walkthrough
 
-The following walkthrough is an extract from the final thesis report detailing a walkthrough of an example use of the system. The "animalsmodified.csv" dataset (included in this repository) is used for this walkthrough. In the walkthrough, a sample use of the system is demonstrated for this dataset.
+The following walkthrough is an extract from the final thesis report detailing a walkthrough of an example use of the system (included in this repository). The "animalsmodified.csv" dataset (included in this repository) is used for this walkthrough. In the walkthrough, a sample use of the system is demonstrated for this dataset.
 
 In a terminal, if we run the python program using python3, we are greeted with the following screen:
 
