@@ -14,6 +14,7 @@ from pydot import graph_from_dot_data
 import matplotlib.pyplot as plt
 from sklearn.inspection import permutation_importance
 import time
+import os
 
 class Node:
     def __init__(self, num=None, data=None, con=None, nextTrue=None, nextFalse=None, case=None, true_cases=[]):
@@ -316,14 +317,18 @@ print("Done")
 # - numeric data only. target values allowed to be text - they will be transformed
 # care for missing or weird values
 # an empty conclusion column will be added
-filename = input("Please enter the name of the CSV file to be imported (eg animals.csv): ")
-filename = filename.split(".")[0]
+filename = input("Please enter the name of the CSV file to be imported (eg animalsmodified.csv): ")
+filename = filename.split(".")[0] # omit .csv from filename. This is used for naming figures, names, etc...
 #filename 'titanicmodified'#.csv
-#filename = 'watermodified'
+
 print(f"importing data from {filename}.csv into dataframe...", end='')
 df = pd.read_csv(filename+'.csv')
 df = df.dropna()
 print("Done")
+
+figurespath = "figures"
+if not os.path.isdir(figurespath):
+   os.makedirs(figurespath)
 
 # add encoded column. encoded is used by sklearn as the target column 
 # target values will be transformed to numeric in the encoded column 
@@ -386,7 +391,7 @@ dot_data = StringIO()
 export_graphviz(dt, out_file=dot_data, feature_names=feature_names, class_names=target_names , filled=True)
 (graph, ) = graph_from_dot_data(dot_data.getvalue())
 # print(dot_data.getvalue()) - dot data - print to find node numers in dt
-treefile = f"{filename}tree.png"
+treefile = figurespath + "/" + f"{filename}tree.png"
 graph.write_png(treefile)
 Image(graph.create_png())
 print("Done") 
@@ -615,7 +620,6 @@ while (True):
         for i in sort_importances:
             print(f"{i[0]}: {i[1]}")
         print()
-        print("saving plots of importances to files: randomforestfeatureimportancesMDI.png, randomforestfeatureimportancesMAD.png...", end='')
 
         # plot - MDI (mean decrease in impurity) - relatively stable
         std = np.std([
@@ -626,8 +630,10 @@ while (True):
         ax.set_title("Feature importances using MDI") 
         ax.set_ylabel("Mean decrease in impurity")
         fig.tight_layout()
-        plt.savefig('randomforestfeatureimportancesMDI.png')
+        plt.savefig(figurespath + "/" + f"{filename}RFfeature_importances_MDI.png")
         plt.show()
+        print("saving plot feature importances using MDI to file...", end='')
+        print("Done\n")
 
         # plot - MAD (mean accuracy decrease) - a bit wild
         result = permutation_importance(
@@ -639,8 +645,9 @@ while (True):
         ax.set_title("Feature importances using permutation on full model")
         ax.set_ylabel("Mean accuracy decrease")
         fig.tight_layout()
-        plt.savefig('randomforestfeatureimportancesMAD.png')
+        plt.savefig(figurespath + "/" + f"{filename}RFfeature_importances_MAD.png")
         plt.show()
+        print("saving plot feature importances using MAD to file...", end='')
         print("Done\n")
     # get feature importance from xgboost
     elif i == 10:
@@ -649,25 +656,24 @@ while (True):
         #xgboost0 = "xgboostfeature_importances_.png"
         #plt.savefig(xgboost0)
         #print(f"Saved feature importances plot 0 to file: {xgboost0}")
-        print(bst.feature_names)
-        print(bst.get_score(importance_type='weight'))
 
         # using xgb.plot_importance - weight
         xgb.plot_importance(bst, importance_type="weight", title="Feature importance - weight") #default is weight
-        weightplot = "xgboostplot_importance_weight.png"
+        weightplot = figurespath + "/" + f"{filename}XGBplot_importance_weight.png"
         plt.savefig(weightplot)
         print(f"Saved feature importances by weight to file: {weightplot}")
         # using xgb.plot_importance - gain
         xgb.plot_importance(bst, importance_type = "gain", title="Feature importance - gain")
-        gainplot = "xgboostplot_importance_gain.png"
+        gainplot = figurespath + "/" + f"{filename}XGBplot_importance_gain.png"
         plt.savefig(gainplot)
         print(f"Saved feature importances by gain to file: {gainplot}")
         # using xgb.plot_importance - cover
         xgb.plot_importance(bst, importance_type = "cover", title="Feature importance - cover")
-        coverplot = "xgboostplot_importance_cover.png"
+        coverplot = figurespath + "/" + f"{filename}XGBplot_importance_cover.png"
         plt.savefig(coverplot)
         print(f"Saved feature importances by cover to file: {coverplot}")
         plt.show()
+        print()
         # custom feature importance - does the same as above
         #feature_important = bst.get_score(importance_type='weight')
         #keys = list(feature_important.keys())
@@ -768,7 +774,7 @@ while (True):
         plt.ylabel("Number of correctly/incorrectly classified cases")
         plt.title("Learning curve evaluation")
         plt.legend()
-        plt.savefig('learningcurve.png')
+        plt.savefig(figurespath + "/" + f"{filename}learningcurveevaluation.png")
         plt.show()
     # run rules on all cases and dont stop
     elif i == 12:
@@ -862,86 +868,3 @@ while (True):
         bb = choose_black_box()
     else: 
         exit()
-
-######################################################################################################################
-#for each case
-    # train dt model
-    # get a case
-    # run case through dt and observe prediction 1
-    # run case through rules and observe prediction 2
-    # if prediction 1 == prediction 2:
-        # continue
-    # else:
-        # add a new rule to give prediction 1 for case
-
-""" 
-code to encode a string as an int
-m = "mammal"
-mBytes = m.encode("utf-8")
-mInt = int.from_bytes(mBytes, byteorder="big")
-mBytes = mInt.to_bytes(((mInt.bit_length() + 7) // 8), byteorder="big")
-m = mBytes.decode("utf-8") """            
-
-#print(df.query('milk == 0 and name == "frog"')) # only show rows with animals which have milk == 1
-#print(df.query('milk == 1')[['name','milk']]) # same but only show columns named
-
-# split full_rule into rule and conclusion
-split_rule = full_rule.split()
-rule = split_rule[1] + split_rule[2] + split_rule[3]
-#rule = milk==1
-conclusion = split_rule[5]
-#conclusion = mammal
-print(df.query(rule)[['name','milk','target']])
-#print(df.query('milk == 1')[['name','milk','type']])
-#rule = "milk == 1"
-rules.append(rule + " " + conclusion)
-print("here are the rules")
-print(rules)
-
-# for all animals - apply rules
-for animal in df['name']:
-    for r in rules:
-        # if query returns a result - it means the rule is true
-        # if nothing returned - rule is false - go to next rule (or list of rules)
-        query = r.split()[0] + " and " + "name==" + "'" + animal + "'"
-        print(query)
-        #print(df.query(query)[['name','milk','target']])
-        #if df.query(query)[['name','milk','target']] != None:
-        #df.loc[9,['avg_precipitation']] = np.nan
-
-        # here the rule is true - i set conclusion to the conclusion given by the rule
-        # DO NOT wrap .loc in print statement
-        df.loc[df["target"] == "mammal", 'conclusion'] = r.split()[1]
-        #df.loc[0, 'conclusion'] = 10
-        #print(df)
-        df.loc[df["name"] == animal][["conclusion"]] = r.split()[1]
-        print(df[['name','milk', 'target', 'conclusion']])
-        break
-    break
-
-""" class SLinkedList:
-def __init__(self):
-    self.head = None
-    self.count = 1
-
-def listprint(self):
-    printval = self.head
-    while printval is not None:
-        print (printval.data)
-        print("Then")
-        print(printval.nextTrue)
-        printval = printval.nextFalse """
-""" # rules: linked list of rules
-rules = SLinkedList()
-# 1 rule
-rules.head = Node("milk==1")
-rules.head.number = rules.count
-# Link first Node to second node
-rules.head.nextTrue = "mammal"
-rules.head.nextFalse = None
-rules.count += 1
-"""
-#https://www.w3resource.com/pandas/dataframe/dataframe-query.php
-#https://www.geeksforgeeks.org/python-filtering-data-with-pandas-query-method/
-#https://www.kdnuggets.com/2019/06/select-rows-columns-pandas.html
-#https://www.kdnuggets.com/2017/05/simplifying-decision-tree-interpretation-decision-rules-python.html

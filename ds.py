@@ -1,3 +1,4 @@
+# a file created to test the possibility of using python's class implementation with a linked list as the rules data structure implementation
 class Node:
     def __init__(self, dataval=None):
         self.dataval = dataval
