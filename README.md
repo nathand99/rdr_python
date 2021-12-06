@@ -1,7 +1,7 @@
 # rdr_python
 
 ### Background
-This repository contains the code which was developed for my thesis topic: Ripple Down Rules for Explainable AI. The system created for this topic is located in the file ```rdr.py```. The system involves using a human-in-the-loop to create a rules to attempt to correctly classify a dataset using RDR. These rules form a ruleset which is an explainable model. This explainable model can explain the predictions of a black box classifier. to create the ruleset, the human user will create rules along side of a black box classfiier - attempting to match the classification of the RDR ruleset with the black box classfier. The created ruleset can then be used to explain the black box classifier.
+This repository contains the code which was developed for my thesis topic: **Ripple Down Rules for Explainable AI**. The system created for this topic is located in the file ```rdr.py```. The system involves using a human-in-the-loop to create a rules to attempt to correctly classify a dataset using RDR. These rules form a ruleset which is an explainable model. This explainable model can explain the predictions of a black box classifier. to create the ruleset, the human user will create rules along side of a black box classfiier - attempting to match the classification of the RDR ruleset with the black box classfier. The created ruleset can then be used to explain the black box classifier.
 
 The following image is a system architecture diagram:
 
@@ -12,11 +12,35 @@ The option in the program that follows this algorithm is option 4. A more in dep
 
 For more information please read the final report located in this repository.
 
-### Setup
----
-### Usage
-Run the program by entering the command: 
+### Setup and usage
+1. To setup the environment and install required packages:
+
+```python3 -m venv venv```
+
+```source venv/bin/activate```
+
+```pip3 install -r requirements.txt```
+
+Alternatively, install the packages required separately using the command
+
+```pip3 install package```
+
+where package is the required package to install. The required package names are in ```requirements.txt```
+
+2. To run the program:
+
 ```python3 rdr.py```
+
+Then enter the dataset you want to use which is in the datasets directory. The datasets ```animalsmodified.csv``` and ```titanicmodified.csv``` are 2 recommended datasets as they were used in development. There also also other datasets provided in the folder. Also included in the datasets folder are python folders which edit datasets to make them usable in the system - these are named "editcsv_DATASET.py" where DATASET refers to the dataset they modify. In this system, each dataset must be csv file with:
+ - the first row giving feature names. 
+ - the first column containing the names of each case. Labelled "name"
+ - the last column containing the target class of each case. Labelled "target"
+ - numeric data values only
+ - string target values only
+
+Each editecsv python file edits each dataset to follow these rules.
+
+The following walkthrough shows an example use of the system.
 
 ### Walkthrough
 
