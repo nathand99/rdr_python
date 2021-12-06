@@ -1,7 +1,7 @@
 # rdr_python
 
 ### Background
-This repository contains the code which was developed for my thesis topic: Ripple Down Rules for Explainable AI. The system created for this topic is located in the file ```rdr.py```. The system involves using a human-in-the-loop to create a ruleset using RDR which is an explaianble model. This interpretable model can explain the predictions of a black box classifier. To achieve this, the human user will create rules along side of a black box classfiier to create a ruleset which explains the black box classifier.
+This repository contains the code which was developed for my thesis topic: Ripple Down Rules for Explainable AI. The system created for this topic is located in the file ```rdr.py```. The system involves using a human-in-the-loop to create a rules to attempt to correctly classify a dataset using RDR. These rules form a ruleset which is an explainable model. This explainable model can explain the predictions of a black box classifier. to create the ruleset, the human user will create rules along side of a black box classfiier - attempting to match the classification of the RDR ruleset with the black box classfier. The created ruleset can then be used to explain the black box classifier.
 
 The following image is a system architecture diagram:
 
