@@ -317,12 +317,12 @@ print("Done")
 # - numeric data only. target values allowed to be text - they will be transformed
 # care for missing or weird values
 # an empty conclusion column will be added
-filename = input("Please enter the name of the CSV file to be imported (eg animalsmodified.csv): ")
+filename = input("Please enter the name of the CSV file to be imported from the \"datasets\" directory (eg animalsmodified.csv): ")
 filename = filename.split(".")[0] # omit .csv from filename. This is used for naming figures, names, etc...
 #filename 'titanicmodified'#.csv
 
 print(f"importing data from {filename}.csv into dataframe...", end='')
-df = pd.read_csv(filename+'.csv')
+df = pd.read_csv("datasets/" + filename+'.csv')
 df = df.dropna()
 print("Done")
 
