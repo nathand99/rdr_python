@@ -1,6 +1,6 @@
 # rdr_python
 
-### Background
+## Background
 This repository contains the code which was developed for my thesis topic: **Ripple Down Rules for Explainable AI**. The system created for this topic is located in the file ```rdr.py```. The system involves using a human-in-the-loop to create a rules to attempt to correctly classify a dataset using RDR. These rules form a ruleset which is an explainable model. This explainable model can explain the predictions of a black box classifier. to create the ruleset, the human user will create rules along side of a black box classfiier - attempting to match the classification of the RDR ruleset with the black box classfier. The created ruleset can then be used to explain the black box classifier.
 
 The following image is a system architecture diagram:
@@ -12,11 +12,13 @@ The option in the program that follows this algorithm is option 4. A more in dep
 
 For more information please read the final report located in this repository.
 
-### Setup and usage
+## Setup and usage
 
 Firstly, clone this repository and change current directory to be inside python_rdr
 
-1. To setup the environment and install required packages:
+***Option 1:***
+
+To setup the environment and install required packages on linux using pip3
 
 ```python3 -m venv venv```
 
@@ -25,6 +27,14 @@ Firstly, clone this repository and change current directory to be inside python_
 ```pip3 install -r requirements.txt```
 
 [Click here for venv documentation](https://docs.python.org/3/library/venv.html)
+
+Graphviz (which is used to create a tree image from the decision tree) [will not work properly](https://github.com/WillKoehrsen/Data-Analysis/issues/36) if installed by pip3. The same is true for tk. Run the following 2 lines to install them:
+
+```sudo apt install graphviz```
+
+```sudo apt-get install python3-tk```
+
+***Option 2:***
 
 Alternatively, install the packages required separately using the command
 
@@ -47,7 +57,7 @@ Each editecsv python file edits each dataset to follow these rules.
 
 The following walkthrough shows an example use of the system.
 
-### Walkthrough
+## Walkthrough
 
 The following walkthrough is an extract from the final thesis report detailing a walkthrough of an example use of the system (included in this repository). The "animalsmodified.csv" dataset (included in this repository) is used for this walkthrough. In the walkthrough, a sample use of the system is demonstrated for this dataset.
 
