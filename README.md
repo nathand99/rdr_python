@@ -13,6 +13,9 @@ The option in the program that follows this algorithm is option 4. A more in dep
 For more information please read the final report located in this repository.
 
 ### Setup and usage
+
+Firstly, clone this repository and change current directory to be inside python_rdr
+
 1. To setup the environment and install required packages:
 
 ```python3 -m venv venv```
@@ -158,6 +161,7 @@ If we continue adding rules until every single animal in the animals dataset is 
 ![image](https://user-images.githubusercontent.com/47731415/144803823-a2789b54-abcf-4254-b307-c2fc72ed860b.png)
 
 Figure 43 - a ruleset that correctly classifies all cases
+
 With this print out of the ruleset, we have created an explainable model that explains the predictions of the “black box” classifier. 
 
 Now let’s go over some of the other options in the menu. Option 2 runs the black box classifier on a case inputted by the user.
