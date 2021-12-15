@@ -11,6 +11,8 @@ import xgboost as xgb
 from six import StringIO 
 from IPython.display import Image 
 from pydot import graph_from_dot_data
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from sklearn.inspection import permutation_importance
 import time
@@ -631,6 +633,7 @@ while (True):
         ax.set_ylabel("Mean decrease in impurity")
         fig.tight_layout()
         plt.savefig(figurespath + "/" + f"{filename}RFfeature_importances_MDI.png")
+        print("Close image to continue")
         plt.show()
         print("saving plot feature importances using MDI to file...", end='')
         print("Done\n")
@@ -646,6 +649,7 @@ while (True):
         ax.set_ylabel("Mean accuracy decrease")
         fig.tight_layout()
         plt.savefig(figurespath + "/" + f"{filename}RFfeature_importances_MAD.png")
+        print("Close image to continue")
         plt.show()
         print("saving plot feature importances using MAD to file...", end='')
         print("Done\n")
@@ -672,6 +676,7 @@ while (True):
         coverplot = figurespath + "/" + f"{filename}XGBplot_importance_cover.png"
         plt.savefig(coverplot)
         print(f"Saved feature importances by cover to file: {coverplot}")
+        print("Close image to continue")
         plt.show()
         print()
         # custom feature importance - does the same as above
@@ -775,6 +780,7 @@ while (True):
         plt.title("Learning curve evaluation")
         plt.legend()
         plt.savefig(figurespath + "/" + f"{filename}learningcurveevaluation.png")
+        print("Close image to continue")
         plt.show()
     # run rules on all cases and dont stop
     elif i == 12:
