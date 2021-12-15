@@ -24,6 +24,8 @@ Firstly, clone this repository and change current directory to be inside python_
 
 ```pip3 install -r requirements.txt```
 
+[Click here for venv documentation](https://docs.python.org/3/library/venv.html)
+
 Alternatively, install the packages required separately using the command
 
 ```pip3 install package```
